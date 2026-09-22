@@ -627,7 +627,7 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
     var hasOpts = !(S.mode==='hard' && cell.tier.id==='go');
     S.cur = { ci:ci, idx:idx, cell:cell, tier:cell.tier, q:cell.q, hasOpts:hasOpts,
               phase:'A', shown:false, resA:null, resB:null, answering:S.turn,
-              half:false, msg:'',
+              half:false, msg:'', swapping:false,
               order: shuffle(cell.q.opts.map(function(_,i){ return i; })) };
 
     document.getElementById('boardview').hidden = true;
@@ -696,7 +696,7 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
   }
   /* الوسائل لصاحب الدور فقط، وفي مرحلته (A) فقط */
   function aidAvailable(kind){
-    var c = S.cur; if(!c || c.phase !== 'A' || c.resA !== null) return false;
+    var c = S.cur; if(!c || c.phase !== 'A' || c.resA !== null || c.swapping) return false;
     var a = S.teams[S.turn].aids;
     if(!a[kind]) return false;
     if(kind==='half') return c.hasOpts && !c.half;
@@ -730,17 +730,49 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
       applyHalf();
       c.msg = 'حُذف خياران خاطئان — يبقى الخياران للفريق الثاني أيضًا';
     } else if(kind==='swap'){
-      var nq = spareQuestion(c.ci, c.tier, c.q);
-      c.q = nq; c.cell.q = nq;
-      c.order = shuffle(nq.opts.map(function(_,i){ return i; }));
-      c.half = false;
-      document.getElementById('q-text').textContent = nq.q;
-      startPhase('A');
-      c.msg = 'بُدّل السؤال وأُعيد المؤقّت';
+      /* أولًا: إيقاف المؤقّت وكشف إجابة السؤال الحالي للفائدة، ثم يعرض المقدّم البديل */
+      clearInterval(S.timer); S.tick = null;
+      c.swapping = true;
+      var box = document.getElementById('q-opts');
+      Array.prototype.forEach.call(box.children, function(b,pos){
+        b.disabled = true;
+        if(c.order[pos] === c.q.a) b.classList.add('right');
+      });
+      document.getElementById('q-hold').hidden = true;
+      document.getElementById('q-judge').hidden = true;
+      document.getElementById('r-ans').textContent  = c.q.opts[c.q.a];
+      document.getElementById('r-note').textContent = c.q.note || '';
+      document.getElementById('r-ref').textContent  = 'المرجع: ' + c.q.ref;
+      document.getElementById('q-reveal').hidden = false;
+      document.getElementById('q-time').textContent = '—';
+      document.getElementById('q-turn').innerHTML =
+        '<span>طلب <b>'+esc(team.name)+'</b> تبديل السؤال</span><span>هذه إجابة السؤال الحالي للفائدة العامة، ولا نقاط عليها</span>';
+      document.getElementById('q-actions').innerHTML =
+        '<button class="btn" onclick="swapNow()">اعرض السؤال البديل</button>';
+      document.getElementById('q-actions').hidden = false;
+      document.getElementById('q-aids').hidden = true;
+      return;
     } else if(kind==='help'){
       extendTimer(30);
       c.msg = 'أُضيفت ٣٠ ثانية، ويحق لصاحب الدور استشارة الجمهور في هذا السؤال';
     }
+    renderAids();
+  };
+
+  /* المقدّم يعرض السؤال البديل بعد كشف إجابة السؤال المُبدَّل */
+  window.swapNow = function(){
+    var c = S.cur; if(!c || !c.swapping) return;
+    var nq = spareQuestion(c.ci, c.tier, c.q);
+    if(!nq){ c.swapping = false; startPhase('A'); return; }
+    c.q = nq; c.cell.q = nq;
+    c.order = shuffle(nq.opts.map(function(_,i){ return i; }));
+    c.half = false; c.swapping = false;
+    document.getElementById('q-text').textContent = nq.q;
+    document.getElementById('q-reveal').hidden = true;
+    var act = document.getElementById('q-actions');
+    act.hidden = true; act.innerHTML = '<button class="btn" onclick="nextTurn()">التالي</button>';
+    startPhase('A');
+    c.msg = 'هذا هو السؤال البديل، وأُعيد المؤقّت';
     renderAids();
   };
 
@@ -770,8 +802,8 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
   window.judge = function(ok){ resolve(ok); };
 
   function resolve(correct){
+    var c = S.cur; if(c.swapping) return;
     clearInterval(S.timer);
-    var c = S.cur;
     if(c.phase === 'A'){
       c.resA = correct;
       document.getElementById('q-judge').hidden = true;

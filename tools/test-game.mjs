@@ -194,18 +194,28 @@ ok($('q-aids').innerHTML.includes('باء'),'في الدور التالي الو
 window.useAid('half');
 ok(alive().length===2,'باء يستخدم حذف خيارين في دوره');
 
-/* ══ 10) تبديل السؤال — لصاحب الدور، ويعيد المؤقّت ══ */
+/* ══ 10) تبديل السؤال — يكشف إجابة الحالي أولًا، ثم المقدّم يعرض البديل ══ */
 await newGame('full',2);
 cells()[0].onclick();
 advance(20000);
-const before=$('q-text').textContent;
+const before=$('q-text').textContent; const bq=currentQ();
 window.useAid('swap');
-ok($('q-text').textContent!==before,'نص السؤال تغيّر بعد التبديل');
+ok($('q-reveal').hidden===false && $('r-ans').textContent===bq.opts[bq.a],'إجابة السؤال الحالي تُكشف للفائدة');
+ok($('q-text').textContent===before,'السؤال لم يتغير قبل ضغط المقدّم');
+ok($('q-actions').innerHTML.includes('swapNow'),'زر «اعرض السؤال البديل» ظاهر');
+clickOption(true,bq);
+ok($('q-turn').innerHTML.includes('تبديل') && scores()[0]==='٠','لا تُحتسب إجابة أثناء التبديل');
+window.useAid('help');
+ok($('q-time').textContent==='—','لا وسائل أثناء التبديل والمؤقّت متوقف');
+window.swapNow();
+ok($('q-text').textContent!==before,'نص السؤال تغيّر بعد ضغط المقدّم');
 ok($('q-time').textContent==='٦٠','المؤقّت عاد إلى ٦٠ بعد التبديل');
-ok($('q-opts').hidden===false && alive().length===4,'الخيارات الأربعة للسؤال البديل ظاهرة');
+ok($('q-reveal').hidden===true && $('q-opts').hidden===false && alive().length===4,'الكشف اختفى والخيارات الأربعة للسؤال البديل ظاهرة');
 q=currentQ(); ok(!!q && q.q===$('q-text').textContent,'السؤال البديل موجود في البنك');
 window.useAid('swap');
-ok($('q-text').textContent===q.q,'لا تبديل ثانٍ للفريق نفسه');
+ok($('q-text').textContent===q.q && $('q-reveal').hidden===true,'لا تبديل ثانٍ للفريق نفسه');
+clickOption(true,q); q=currentQ(); clickOption(false,q); window.nextTurn();
+ok(scores()[0]==='١٠٠' && $('boardview').hidden===false && cells().length>0,'الجولة تكمل طبيعيًّا بعد التبديل — '+scores());
 
 /* ══ 11) ضبط النقاط للمقدّم ══ */
 await newGame('full',2);
