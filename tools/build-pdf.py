@@ -36,6 +36,11 @@ h1,h2,h3,.k{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",sans-serif}
 .toc td.n{width:14mm;color:#6B6D76;font-variant-numeric:tabular-nums}
 .toc td.v{width:22mm;color:#6B6D76;font-variant-numeric:tabular-nums}
 .toc td.s{color:#6B6D76;font-size:9.5pt}
+.toc a{color:inherit;text-decoration:none}
+.toc tr:hover td{background:#EDF3F1}
+.toc td.p{width:14mm;text-align:left;color:#285246;font-weight:700;font-variant-numeric:tabular-nums}
+.topic{position:relative}
+.pgmark{position:absolute;top:0;inset-inline-end:0;color:#fff;font-size:6pt;line-height:1}
 .topic{break-before:page}
 .thead{border-inline-start:4px solid #3C7162;padding:2mm 4mm;margin:0 0 5mm;background:#EDF3F1;border-radius:0 3mm 3mm 0}
 .thead h2{margin:0;font-size:17pt;font-weight:800}
@@ -51,7 +56,8 @@ h1,h2,h3,.k{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",sans-serif}
 .foot{position:fixed;bottom:-12mm;left:0;right:0;text-align:center;font-size:8.5pt;color:#9a9ca4}
 """
 
-parts = [f"""<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>لاحِب — بنك الأسئلة</title><style>{css}</style></head><body>
+def build(pages=None):
+    parts = [f"""<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>لاحِب — بنك الأسئلة</title><style>{css}</style></head><body>
 <section class="cover">
   <p class="word">لاحِب</p>
   <p class="sub">بنك أسئلة كود الطرق السعودي — نسخة المراجعة</p>
@@ -59,39 +65,56 @@ parts = [f"""<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8
   <p class="meta">{AR(total)} سؤالًا في {AR(len(topics))} موضوعًا، موضوع لكل مجلد من مجلدات الكود<br>
   ثلاث رتب: برونزي (معلومة تأسيسية) · فضي (اشتراط أو قاعدة) · ذهبي (قيمة دقيقة)<br>
   سؤال وجواب: كل سؤال مرفق بإجابته ومعلومة تُثبّت ومرجعه في الكود (المجلد والبند والصفحة)<br>
-  الإصدار {esc(bank.get('version','') )} — {AR(today.strftime('%Y/%m/%d'))}</p>
+  الإصدار {esc(bank.get('version',''))} — {AR(today.strftime('%Y/%m/%d'))}</p>
   <p class="disc">مصدر الأسئلة: كود الطرق السعودي الصادر عن الهيئة العامة للطرق، والمرجع عند أي اختلاف هو نص الكود نفسه.<br>
   «لاحِب» عمل توعوي مستقل، وليس منتجًا رسميًّا صادرًا عن الهيئة.<br>فكرة وإنشاء: م. غازي السيف</p>
 </section>
 <section class="toc"><h2>المحتويات</h2><table>"""]
-for i, t in enumerate(topics, 1):
-    n = sum(len(t["q"][x["id"]]) for x in tiers)
-    parts.append(f'<tr><td class="n">{AR(i)}</td><td><b>{esc(t["name"])}</b></td><td class="s">{esc(t.get("sub",""))}</td><td class="v">مجلد {esc(t["vol"])}</td><td class="n">{AR(n)}</td></tr>')
-parts.append("</table></section>")
-
-for i, t in enumerate(topics, 1):
-    parts.append(f'<section class="topic"><div class="thead"><h2>{AR(i)}. {esc(t["name"])}</h2><p>{esc(t.get("sub",""))} — مجلد {esc(t["vol"])}</p></div>')
-    num = 0
-    for x in tiers:
-        qs = t["q"].get(x["id"], [])
-        if not qs: continue
-        parts.append(f'<div class="tier t-{x["id"]}">{esc(x["name"])} · {AR(x["points"])} نقطة</div>')
-        for q in qs:
-            num += 1
-            parts.append(f'<div class="q"><p class="qt"><b>{AR(num)}.</b>{esc(q["q"])}</p>'
-                         f'<div class="ans"><b>الإجابة:</b> {esc(q["opts"][q["a"]])}<br>{esc(q.get("note",""))}'
-                         f'<span class="ref">المرجع: {esc(q["ref"])}</span></div></div>')
-    parts.append("</section>")
-parts.append("</body></html>")
-
-tmp = tempfile.mkdtemp(prefix="lahib-pdf-")
-page = os.path.join(tmp, "bank.html")
-open(page, "w", encoding="utf-8").write("".join(parts))
+    for i, t in enumerate(topics, 1):
+        n = sum(len(t["q"][x["id"]]) for x in tiers)
+        pg = AR(pages[t["id"]]) if pages and t["id"] in pages else ""
+        parts.append(f'<tr><td class="n">{AR(i)}</td><td><a href="#t-{t["id"]}"><b>{esc(t["name"])}</b></a></td>'
+                     f'<td class="s">{esc(t.get("sub",""))}</td><td class="v">مجلد {esc(t["vol"])}</td>'
+                     f'<td class="n">{AR(n)}</td><td class="p"><a href="#t-{t["id"]}">{pg}</a></td></tr>')
+    parts.append("</table></section>")
+    for i, t in enumerate(topics, 1):
+        parts.append(f'<section class="topic" id="t-{t["id"]}"><div class="pgmark" dir="ltr">PGMARK{t["id"]}END</div>'
+                     f'<div class="thead"><h2>{AR(i)}. {esc(t["name"])}</h2><p>{esc(t.get("sub",""))} — مجلد {esc(t["vol"])}</p></div>')
+        num = 0
+        for x in tiers:
+            qs = t["q"].get(x["id"], [])
+            if not qs: continue
+            parts.append(f'<div class="tier t-{x["id"]}">{esc(x["name"])} · {AR(x["points"])} نقطة</div>')
+            for q in qs:
+                num += 1
+                parts.append(f'<div class="q"><p class="qt"><b>{AR(num)}.</b>{esc(q["q"])}</p>'
+                             f'<div class="ans"><b>الإجابة:</b> {esc(q["opts"][q["a"]])}<br>{esc(q.get("note",""))}'
+                             f'<span class="ref">المرجع: {esc(q["ref"])}</span></div></div>')
+        parts.append("</section>")
+    parts.append("</body></html>")
+    return "".join(parts)
 
 chrome = next((c for c in ("chromium", "chromium-browser", "google-chrome", "google-chrome-stable") if shutil.which(c)), None)
 if not chrome: sys.exit("✗ لم يُعثر على Chromium لطباعة PDF")
-cmd = [chrome, "--headless=new", "--no-sandbox", "--disable-gpu", "--no-pdf-header-footer",
-       "--virtual-time-budget=8000", f"--print-to-pdf={OUT}", "file://" + page]
-subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=300)
+tmp = tempfile.mkdtemp(prefix="lahib-pdf-")
+def render(html_text, out):
+    page = os.path.join(tmp, "bank.html")
+    open(page, "w", encoding="utf-8").write(html_text)
+    cmd = [chrome, "--headless=new", "--no-sandbox", "--disable-gpu", "--no-pdf-header-footer",
+           "--virtual-time-budget=8000", f"--print-to-pdf={out}", "file://" + page]
+    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=300)
+
+# الجولة الأولى: بلا أرقام صفحات، ثم نقرأ موضع كل علامة @@id@@ بـ pdftotext
+first = os.path.join(tmp, "pass1.pdf")
+render(build(), first)
+pages = {}
+if shutil.which("pdftotext"):
+    txt = subprocess.run(["pdftotext", first, "-"], capture_output=True, text=True).stdout
+    txt = re.sub("[\u200e\u200f\u202a-\u202e\u2066-\u2069]", "", txt)   # إزالة رموز الاتجاه
+    for n, chunk in enumerate(txt.split("\f"), 1):
+        for m in re.finditer(r"PGMARK(v\d+)END", chunk):
+            pages.setdefault(m.group(1), n)
+# الجولة الثانية: بأرقام الصفحات (حجم الفهرس ثابت فلا تتغير الأرقام)
+render(build(pages), OUT)
 shutil.rmtree(tmp, ignore_errors=True)
 print(f"✓ {os.path.relpath(OUT, ROOT)} — {os.path.getsize(OUT)//1024} كيلوبايت، {AR(total)} سؤالًا")
