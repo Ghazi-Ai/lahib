@@ -183,4 +183,4 @@ tools/test-game.mjs     اختبار منطق اللعبة
 
 ---
 
-فكرة وإنشاء: [م. غازي السيف](https://www.linkedin.com/in/ghazi-alsaif/)
+فكرة وإعداد وإشراف: [م. غازي السيف](https://www.linkedin.com/in/ghazi-alsaif/) — نُفّذ بأدوات برمجية مساعدة تحت إشرافه ومراجعته.
