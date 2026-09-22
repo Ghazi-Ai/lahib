@@ -45,14 +45,19 @@ h1,h2,h3,.k{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",sans-serif}
 .thead{border-inline-start:4px solid #3C7162;padding:2mm 4mm;margin:0 0 5mm;background:#EDF3F1;border-radius:0 3mm 3mm 0}
 .thead h2{margin:0;font-size:17pt;font-weight:800}
 .thead p{margin:0;color:#4a4d57;font-size:10.5pt}
-.tier{margin:5mm 0 2mm;font-size:12.5pt;font-weight:800;padding:1.2mm 3mm;border-radius:2mm;display:inline-block}
-.t-br{color:#7B502D;background:#F5ECE6}.t-si{color:#4f5260;background:#EBECEF}.t-go{color:#796B2A;background:#F0ECDB}
-.q{break-inside:avoid;margin:0 0 4.5mm;padding:3mm 3.5mm;border:1px solid #DCDDE0;border-radius:2.5mm}
+.tier{margin:5mm 0 2mm;font-size:12.5pt;font-weight:800;padding:1.2mm 3mm;border-radius:2mm;display:inline-block;break-after:avoid}
+.tier + .q{break-before:avoid}
+.q{break-inside:avoid;margin:0 0 4.5mm;padding:3mm 3.5mm;border:1.2px solid var(--c);border-inline-start-width:4px;border-radius:2.5mm;background:var(--bg)}
 .q .qt{margin:0 0 1.5mm;font-weight:700;font-size:11.5pt}
-.q .qt b{color:#3C7162;font-variant-numeric:tabular-nums;margin-inline-end:2mm}
-.ans{background:#EDF3F1;border-radius:2mm;padding:2mm 3mm;font-size:10pt;line-height:1.65}
-.ans b{color:#285246}
-.ans .ref{display:block;color:#285246;font-weight:700;font-size:9.5pt;margin-top:1mm;font-variant-numeric:tabular-nums}
+.q .qt b{color:var(--c);font-variant-numeric:tabular-nums;margin-inline-end:2mm}
+.ans{background:#fff;border:1px solid var(--c2);border-radius:2mm;padding:2mm 3mm;font-size:10pt;line-height:1.65}
+.ans b{color:var(--c)}
+.ans .ref{display:block;color:var(--c);font-weight:700;font-size:9.5pt;margin-top:1mm;font-variant-numeric:tabular-nums}
+/* لون واحد لكل رتبة: البرونزي بنّي، الفضي رمادي، الذهبي ذهبي */
+.q.br,.tier.t-br{--c:#7B502D;--c2:#E3CDBB;--bg:#F8F1EB}
+.q.si,.tier.t-si{--c:#4F5260;--c2:#CFD1D8;--bg:#F0F1F4}
+.q.go,.tier.t-go{--c:#796B2A;--c2:#E2D9AE;--bg:#F5F1DF}
+.tier{color:var(--c);background:var(--bg);border:1.2px solid var(--c2)}
 .foot{position:fixed;bottom:-12mm;left:0;right:0;text-align:center;font-size:8.5pt;color:#9a9ca4}
 """
 
@@ -87,7 +92,7 @@ def build(pages=None):
             parts.append(f'<div class="tier t-{x["id"]}">{esc(x["name"])} · {AR(x["points"])} نقطة</div>')
             for q in qs:
                 num += 1
-                parts.append(f'<div class="q"><p class="qt"><b>{AR(num)}.</b>{esc(q["q"])}</p>'
+                parts.append(f'<div class="q {x["id"]}"><p class="qt"><b>{AR(num)}.</b>{esc(q["q"])}</p>'
                              f'<div class="ans"><b>الإجابة:</b> {esc(q["opts"][q["a"]])}<br>{esc(q.get("note",""))}'
                              f'<span class="ref">المرجع: {esc(q["ref"])}</span></div></div>')
         parts.append("</section>")

@@ -102,6 +102,10 @@ a.chip{display:inline-block;color:var(--ink)}
   border:1.5px solid var(--line);background:var(--surface);box-shadow:var(--shadow);padding:clamp(18px,3.5vw,32px);
   display:flex;flex-direction:column;gap:12px}
 .face.back{transform:rotateY(180deg);background:var(--surface-2)}
+.flip.br .face{border-color:var(--br);box-shadow:var(--shadow),inset 0 0 0 1px var(--br-bg)}
+.flip.si .face{border-color:var(--si);box-shadow:var(--shadow),inset 0 0 0 1px var(--si-bg)}
+.flip.go .face{border-color:var(--go);box-shadow:var(--shadow),inset 0 0 0 1px var(--go-bg)}
+.flip.br .face .label,.flip.br .face .big{color:var(--br)} .flip.si .face .label{color:var(--si)} .flip.go .face .label,.flip.go .face .big{color:var(--go)}
 .face .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .face .k{font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:99px;border:1.5px solid var(--line-2);color:var(--muted)}
 .face .k.br{color:var(--br);border-color:var(--br);background:var(--br-bg)}
@@ -299,7 +303,8 @@ a.chip{display:inline-block;color:var(--ink)}
   function showCard(){
     var c = S.deck[S.i], q = c.q, ans = q.opts[q.a];
     S.flipped = false;
-    document.getElementById('flip').classList.remove('on');
+    var fl = document.getElementById('flip');
+    fl.classList.remove('on','br','si','go'); fl.classList.add(c.tier.id);
     var meta = '<div class="meta"><span class="k '+c.tier.id+'">'+esc(c.tier.name)+'</span>'+
                '<span class="k">'+esc(c.topic.name)+' · مجلد '+esc(c.topic.vol)+'</span>'+
                (progress[c.key] ? '<span class="k">'+(progress[c.key]==='known'?'✓ أعرفها':'↻ أراجعها')+'</span>' : '')+'</div>';
