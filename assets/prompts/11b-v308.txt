@@ -1,0 +1,32 @@
+This image is one of a set of 32 for an educational quiz game about the Saudi Highway Code,
+an official technical code published by the Roads General Authority of Saudi Arabia.
+The whole set must look coherent: same camera language, same lighting, same finish.
+
+SHARED STYLE for every image:
+Photorealistic 3D render, like a high-end architectural visualisation or product shot.
+Real materials with believable texture: coarse asphalt, crushed aggregate, compacted sand, concrete, steel.
+Three-quarter elevated camera angle, 35mm lens, soft overcast daylight from the upper left, gentle shadows.
+(For subjects described as seen from above, raise the camera but keep the same light and finish.)
+Muted, desaturated colour grading — calm and institutional, never saturated or glossy.
+Saudi Arabian desert and road-infrastructure setting.
+Centred composition, the whole subject inside the frame with generous margin.
+Set in a real Saudi desert landscape: open hazy sky, distant low rocky mountains, sand and sparse dry shrubs, natural depth of field. Not a studio shot, not an isolated object on a plain backdrop.
+
+COLOUR MOOD: sand #EFEDE8, warm grey #76777A, asphalt #3A3D3C, plus ONE accent tint per image
+named below. Let the accent tint the light or the main subject, not the whole scene.
+
+STRICT RULES: absolutely no text, no letters, no numbers, no captions, no watermarks,
+no logos, no brand marks, no government emblems, no palm trees, no shields or crests,
+no national symbols, no flags. No recognisable human faces.
+
+Generate the image now:
+Size 760x400 px (19:10 landscape).
+Accent tint: #38713B. Overall tint of the scene light: #E6F2E6.
+Subject: A desert highway under construction, its edge cut cleanly to expose the full pavement cross-section
+in the foreground: coarse dark asphalt on top, then crushed-stone base, granular subbase, and compacted sandy
+subgrade at the bottom, each layer with its true material texture. The finished asphalt road runs away into
+the desert behind, with a road roller parked far in the background. Ground-level three-quarter camera,
+same light, sky and landscape as the rest of the set.
+No text of any kind.
+
+Save the result as: assets/topics/v308.png

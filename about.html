@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>عن لاحِب — الفكرة والاسم والغاية</title>
+<link rel="icon" href="assets/brand/lahib-icon.png">
+<meta name="author" content="غازي السيف">
+<meta name="description" content="لاحِب: مبادرة توعوية تحوّل كود الطرق السعودي من مجلدات على الرف إلى معرفة حيّة متداولة، عبر مسابقة موثّقة وبطاقات مذاكرة.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#F0F0F2; --surface:#FFFFFF; --surface-2:#F7F7F9;
+  --ink:#1D1F26; --muted:#6B6D76; --line:#DCDDE0; --line-2:#B9BBC1;
+  --accent:#3C7162; --accent-soft:#EDF3F1; --accent-ink:#285246; --mark-bg:#EDF3F1;
+  --br:#7B502D; --br-bg:#F5ECE6; --si:#646773; --si-bg:#EBECEF; --go:#796B2A; --go-bg:#F0ECDB;
+  --shadow:0 1px 2px rgba(35,40,38,.05), 0 10px 26px rgba(35,40,38,.07);
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --ground:#101013; --surface:#181A1D; --surface-2:#202125;
+  --ink:#EAEBED; --muted:#989BA4; --line:#2F3137; --line-2:#46484E;
+  --accent:#77C5AF; --accent-soft:#162722; --accent-ink:#A4D5C7; --mark-bg:#77C5AF;
+  --br:#CD9970; --br-bg:#2D2016; --si:#B1B4BE; --si-bg:#26272C; --go:#D5C167; --go-bg:#332D15;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px rgba(0,0,0,.38);
+}}
+:root[data-theme="dark"]{
+  --ground:#101013; --surface:#181A1D; --surface-2:#202125;
+  --ink:#EAEBED; --muted:#989BA4; --line:#2F3137; --line-2:#46484E;
+  --accent:#77C5AF; --accent-soft:#162722; --accent-ink:#A4D5C7; --mark-bg:#77C5AF;
+  --br:#CD9970; --br-bg:#2D2016; --si:#B1B4BE; --si-bg:#26272C; --go:#D5C167; --go-bg:#332D15;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans Arabic","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-size:16px; line-height:1.9; -webkit-font-smoothing:antialiased;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+h1,h2,h3{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",system-ui,sans-serif;text-wrap:balance;line-height:1.35}
+.wrap{max-width:960px;margin:0 auto;padding-inline:16px;padding-block:22px}
+a{color:var(--accent-ink)}
+img{max-width:100%;display:block}
+.lane{height:3px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--line-2) 0 24px,transparent 24px 44px)}
+
+.mast{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:8px}
+.mark{width:52px;height:52px;flex:0 0 auto;border-radius:14px;background:var(--mark-bg);border:1px solid var(--line);
+  box-shadow:var(--shadow);position:relative;overflow:hidden}
+.mark img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:6px}
+.mast h1{margin:0;font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-.5px}
+.mast .tag{margin:3px 0 0;color:var(--muted);font-size:13.5px;line-height:1.5}
+.nav{margin-inline-start:auto;display:flex;gap:8px;flex-wrap:wrap}
+.nav a{font-size:13px;font-weight:700;text-decoration:none;padding:9px 16px;border-radius:99px;border:1.5px solid var(--line-2);color:var(--ink)}
+.nav a:hover{border-color:var(--accent)}
+.nav a.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink)}
+
+/* الافتتاحية */
+.hero{position:relative;border-radius:20px;overflow:hidden;margin-top:22px;box-shadow:var(--shadow);border:1px solid var(--line);
+  background:var(--surface);min-height:340px;display:grid}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .veil{position:absolute;inset:0;background:linear-gradient(to left,rgba(16,16,19,.86) 0%,rgba(16,16,19,.66) 55%,rgba(16,16,19,.25) 100%)}
+.hero .in{position:relative;padding:clamp(26px,5vw,52px);color:#fff;max-width:560px;align-self:center}
+.hero .eyebrow{color:#B9E4D6}
+.hero h2{margin:8px 0 12px;font-size:clamp(28px,5vw,46px);font-weight:800;color:#fff}
+.hero p{margin:0;font-size:clamp(15px,2vw,18px);color:#E6E8EA;line-height:1.85}
+.eyebrow{font-size:11.5px;letter-spacing:.14em;color:var(--muted);font-weight:700}
+
+/* الأقسام */
+.sec{margin-top:34px}
+.sec h2{margin:0 0 10px;font-size:clamp(21px,3vw,27px);font-weight:800}
+.sec h2 span{display:block;font-size:12px;letter-spacing:.14em;color:var(--muted);font-weight:700;margin-bottom:6px;font-family:"IBM Plex Sans Arabic",sans-serif}
+.sec p{margin:0 0 14px;max-width:70ch}
+.lead{font-size:clamp(17px,2.2vw,20px);line-height:1.9;color:var(--ink)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.pad{padding:clamp(18px,3vw,28px)}
+
+/* الاسم */
+.name{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center}
+.name .word{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(56px,10vw,104px);font-weight:800;line-height:1;color:var(--accent);
+  letter-spacing:-1px;text-align:center;padding:24px 10px}
+.name .word small{display:block;font-size:14px;letter-spacing:.12em;color:var(--muted);font-weight:700;margin-top:12px;font-family:"IBM Plex Sans Arabic",sans-serif}
+.name blockquote{margin:0;padding:14px 18px;border-inline-start:3px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;font-size:15px;color:var(--accent-ink)}
+.name blockquote b{display:block;font-size:12px;letter-spacing:.1em;color:var(--muted);margin-bottom:2px}
+
+/* الأرقام */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:6px}
+.nums div{padding:18px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface-2);text-align:center}
+.nums b{display:block;font-family:"Noto Kufi Arabic",sans-serif;font-size:32px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--accent)}
+.nums span{font-size:12.5px;color:var(--muted)}
+
+/* المبادئ */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pr{padding:20px 22px;border-radius:14px;border:1px solid var(--line);background:var(--surface)}
+.pr h3{margin:0 0 6px;font-size:16.5px;font-weight:800}
+.pr p{margin:0;font-size:14.5px;color:var(--muted);line-height:1.8}
+.pr i{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--accent-soft);color:var(--accent-ink);
+  font-style:normal;font-weight:800;font-family:"Noto Kufi Arabic",sans-serif;margin-bottom:10px;font-size:14px}
+
+/* الرتب */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tier{padding:18px;border-radius:14px;border:1.5px solid;text-align:center}
+.tier img{width:56px;height:56px;margin:0 auto 8px}
+.tier b{display:block;font-size:16px}
+.tier span{font-size:13px;opacity:.85}
+.t-br{border-color:var(--br);background:var(--br-bg);color:var(--br)}
+.t-si{border-color:var(--si);background:var(--si-bg);color:var(--si)}
+.t-go{border-color:var(--go);background:var(--go-bg);color:var(--go)}
+
+/* الصور الجانبية */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.strip img{aspect-ratio:1.9;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+
+/* الختام */
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;border-radius:12px;
+  background:var(--accent);color:#fff;font-weight:700;font-size:15px;box-shadow:var(--shadow);text-decoration:none}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line-2);box-shadow:none}
+.btn.ghost:hover{border-color:var(--accent);filter:none}
+.author{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.author .av{width:56px;height:56px;border-radius:50%;background:var(--accent-soft);border:1.5px solid var(--accent);display:grid;place-items:center;
+  font-family:"Noto Kufi Arabic",sans-serif;font-weight:800;color:var(--accent-ink);flex:0 0 auto}
+.author p{margin:0}
+.author small{display:block;color:var(--muted);font-size:13px}
+
+.foot{margin-top:30px;padding-top:16px;font-size:12px;color:var(--muted);line-height:1.85;text-align:center}
+.foot a{color:var(--accent-ink);text-decoration:none;font-weight:600}
+@media (max-width:760px){
+  .name,.grid{grid-template-columns:1fr}
+  .nums,.strip{grid-template-columns:1fr 1fr}
+  .tiers{grid-template-columns:1fr}
+  .hero .veil{background:linear-gradient(to top,rgba(16,16,19,.9) 0%,rgba(16,16,19,.7) 60%,rgba(16,16,19,.35) 100%)}
+}
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mark" aria-hidden="true"><img alt="" src="assets/brand/lahib-mark.webp" onerror="this.remove()"></div>
+    <div>
+      <h1>لاحِب</h1>
+      <p class="tag">عن الفكرة والاسم والغاية</p>
+    </div>
+    <nav class="nav">
+      <a href="index.html">المسابقة</a>
+      <a href="study.html">بطاقات المذاكرة</a>
+      <a href="about.html" class="on">عن لاحِب</a>
+    </nav>
+  </header>
+  <div class="lane"></div>
+
+  <!-- الافتتاحية -->
+  <section class="hero">
+    <img alt="" src="assets/topics/v301.webp" onerror="this.remove()">
+    <div class="veil"></div>
+    <div class="in">
+      <div class="eyebrow">مبادرة توعوية حول كود الطرق السعودي</div>
+      <h2>كودٌ يُعرَف، لا كودٌ يُحفَظ على الرفّ</h2>
+      <p>خمسة وعشرون مجلدًا تصف كيف تُخطَّط طرق المملكة وتُصمَّم وتُبنى وتُصان. «لاحِب» يأخذ هذه المعرفة من صفحاتها التقنية إلى طاولة مسابقة، حيث يُسأل عنها ويُناقَش ويُتذكَّر.</p>
+    </div>
+  </section>
+
+  <!-- الاسم -->
+  <section class="sec">
+    <h2><span>الاسم</span>لماذا «لاحِب»؟</h2>
+    <div class="card pad name">
+      <div>
+        <p class="lead">اللاحِب في لسان العرب هو الطريقُ الواسعُ الواضحُ المسلوك؛ الطريق الذي لا يضلّ سالكه لأن آثار السابقين بيّنة عليه.</p>
+        <p>وهذا بالضبط ما يصنعه الكود للطريق: يجعله بيّنًا لمن يخططه ويصممه ويبنيه ويصونه. فاختير الاسم ليقول إن الغاية ليست أن نحفظ نصًّا، بل أن يصير الطريق الصحيح واضحًا لكل من يعمل عليه.</p>
+        <blockquote><b>من المعاجم</b>لَحَبَ الطريقُ: وَضَحَ. وطريقٌ لاحِبٌ: بيِّنٌ واسعٌ منقاد.</blockquote>
+      </div>
+      <div class="word">لاحِب<small>الطريق الواضح المسلوك</small></div>
+    </div>
+  </section>
+
+  <!-- الفكرة -->
+  <section class="sec">
+    <h2><span>الفكرة</span>ما الذي يفعله لاحِب؟</h2>
+    <p class="lead">مسابقة بين فريقين، أسئلتها كلّها مستخرجة من مجلدات كود الطرق السعودي الخمسة والعشرين، وكل سؤال منها مرفق بمرجعه: المجلد والبند والصفحة.</p>
+    <p>يختار الفريقان مواضيعهما من خمسة وعشرين موضوعًا، موضوع لكل مجلد، ثم يتنافسان على لوحة من ثلاث رتب تتدرج من المعلومة التأسيسية إلى القيمة الرقمية الدقيقة. صاحب الدور يجيب أولًا، فإن أخطأ انتقلت الفرصة إلى خصمه. ولكل فريق ثلاث وسائل مساعدة يستعملها مرة واحدة في الجولة. وحين تُكشف الإجابة تظهر معها «معلومة تُثبّت» تشرح لماذا وُضع الاشتراط أصلًا، فيخرج اللاعب من السؤال وقد فهم لا حفظ.</p>
+    <div class="tiers">
+      <div class="tier t-br"><img alt="" src="assets/ranks/rank-br.webp" onerror="this.remove()"><b>برونزي · ١٠٠</b><span>معلومة تأسيسية: مفهوم أو غرض</span></div>
+      <div class="tier t-si"><img alt="" src="assets/ranks/rank-si.webp" onerror="this.remove()"><b>فضي · ٢٥٠</b><span>اشتراط أو قاعدة أو إجراء</span></div>
+      <div class="tier t-go"><img alt="" src="assets/ranks/rank-go.webp" onerror="this.remove()"><b>ذهبي · ٥٠٠</b><span>قيمة دقيقة من نص الكود</span></div>
+    </div>
+    <div class="nums" style="margin-top:14px">
+      <div><b class="num">٢٥</b><span>مجلدًا من الكود، ولكل مجلد موضوعه</span></div>
+      <div><b class="num">٧٥٠</b><span>سؤالًا موثّقًا بالمجلد والبند والصفحة</span></div>
+      <div><b class="num">٣</b><span>رتب تتدرج من الفهم إلى الدقة</span></div>
+      <div><b class="num">٠</b><span>تنصيب: صفحة تُفتح وتعمل</span></div>
+    </div>
+    <div class="strip" aria-hidden="true">
+      <img alt="" src="assets/topics/v308.webp" onerror="this.remove()">
+      <img alt="" src="assets/topics/v304.webp" onerror="this.remove()">
+      <img alt="" src="assets/topics/v602.webp" onerror="this.remove()">
+      <img alt="" src="assets/topics/v801.webp" onerror="this.remove()">
+    </div>
+  </section>
+
+  <!-- الغاية -->
+  <section class="sec">
+    <h2><span>الغاية</span>الهدف الأسمى</h2>
+    <div class="card pad">
+      <p class="lead">أن يتحوّل كود الطرق السعودي من وثيقة مرجعية يُرجع إليها عند الحاجة، إلى معرفة حيّة يحملها المهندس والفنّي والمهتم في ذهنه قبل أن يحملها في ملفّاته.</p>
+      <p>الكود لم يُكتب ليُقرأ مرة ويُنسى؛ كُتب لتُبنى عليه طرق أكثر أمانًا وأطول عمرًا وأقل كلفة. لكن المعرفة التقنية حين تبقى حبيسة آلاف الصفحات تصل إلى قلّة، ويبقى الباقون يعملون بما اعتادوه. المسابقة تكسر هذا الحاجز: تجعل الاطّلاع على الكود أمرًا ممتعًا وتنافسيًّا، وتربط كل معلومة بموضعها في النص فتغرس عادة الرجوع إلى المرجع لا إلى الظن.</p>
+      <p>والغاية الأبعد أن ينعكس ذلك على الطريق نفسه: مهندس يعرف لماذا حُدد هذا الميل، ومفتّش يعرف متى يُعاد فحص هذا العنصر، ومخطّط يعرف ما الذي يسبق رسم المسار. حين تصبح هذه المعرفة مشتركة، يصبح الطريق «لاحبًا» بحق: واضحًا لكل من يعمل عليه، وآمنًا لكل من يسلكه.</p>
+    </div>
+  </section>
+
+  <!-- المبادئ -->
+  <section class="sec">
+    <h2><span>المبادئ</span>ما الذي نلتزم به</h2>
+    <div class="grid">
+      <div class="pr"><i>١</i><h3>المرجع أولًا</h3><p>لا سؤال بلا مرجع. كل إجابة تُردّ إلى مجلد وبند وصفحة، وعند أي خلاف فالحَكم هو نص الكود نفسه لا ذاكرة أحد.</p></div>
+      <div class="pr"><i>٢</i><h3>الفهم قبل الحفظ</h3><p>مع كل إجابة معلومةٌ تشرح السبب. الرقم وحده يُنسى، أما الرقم مع علّته فيبقى.</p></div>
+      <div class="pr"><i>٣</i><h3>البساطة</h3><p>صفحة واحدة تُفتح بلا تنصيب ولا خادم ولا اتصال، على شاشة العرض أو الجوال، في قاعة تدريب أو مكتب أو بيت.</p></div>
+      <div class="pr"><i>٤</i><h3>احترام الهوية الرسمية</h3><p>يستلهم العمل ألوان الهيئة العامة للطرق ولغتها البصرية، ولا يستخدم شعارها ولا أيًّا من عناصره. هو عمل توعوي مستقل لا يتحدث باسم أي جهة.</p></div>
+    </div>
+  </section>
+
+  <!-- المذاكرة -->
+  <section class="sec">
+    <h2><span>خارج المسابقة</span>للتحضير والمراجعة</h2>
+    <p>إلى جانب المسابقة، تتيح بطاقات المذاكرة مراجعة البنك كاملًا فرديًّا: سؤال يُقلب فيظهر جوابه ومرجعه، أو جواب تخمّن سؤاله. تُصفّى بالمجلد والرتبة، وتُحفظ علامات «أعرفها» و«أراجعها لاحقًا» ليعود المتدرب إلى ما يحتاج إليه فقط.</p>
+    <div class="cta">
+      <a class="btn" href="index.html">ابدأ المسابقة</a>
+      <a class="btn ghost" href="study.html">بطاقات المذاكرة</a>
+    </div>
+  </section>
+
+  <!-- صاحب الفكرة -->
+  <section class="sec">
+    <h2><span>صاحب الفكرة</span>فكرة وإنشاء</h2>
+    <div class="card pad author">
+      <div class="av" aria-hidden="true">غ</div>
+      <p><a href="https://www.linkedin.com/in/ghazi-alsaif/" target="_blank" rel="noopener noreferrer author"><strong>م. غازي السيف</strong></a>
+        <small>مهندس مدني، مدير قسم سلامة الطرق بفرع وزارة النقل والخدمات اللوجستية بمنطقة حائل، ومفتّش جسور معتمد من الإدارة الفيدرالية للطرق السريعة (FHWA).</small></p>
+    </div>
+  </section>
+
+  <footer class="foot">
+    مصدر الأسئلة: <strong>كود الطرق السعودي</strong> الصادر عن الهيئة العامة للطرق —
+    <a href="https://rga.gov.sa" target="_blank" rel="noopener noreferrer">rga.gov.sa</a>.<br>
+    «لاحِب» عمل توعوي مستقل، وليس منتجًا رسميًّا صادرًا عن الهيئة.<br>
+    فكرة وإنشاء: <a href="https://www.linkedin.com/in/ghazi-alsaif/" target="_blank" rel="noopener noreferrer author">م. غازي السيف</a>
+  </footer>
+</div>
+</body>
+</html>

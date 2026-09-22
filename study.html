@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>لاحِب — بطاقات المذاكرة</title>
+<link rel="icon" href="assets/brand/lahib-icon.png">
+<meta name="author" content="غازي السيف">
+<meta name="description" content="بطاقات مراجعة لأسئلة لاحِب حول كود الطرق السعودي: سؤال ثم جواب، أو جواب ثم سؤال.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#F0F0F2; --surface:#FFFFFF; --surface-2:#F7F7F9;
+  --ink:#1D1F26; --muted:#6B6D76; --line:#DCDDE0; --line-2:#B9BBC1;
+  --accent:#3C7162; --accent-soft:#EDF3F1; --accent-ink:#285246; --mark-bg:#EDF3F1;
+  --br:#7B502D; --br-bg:#F5ECE6; --si:#646773; --si-bg:#EBECEF; --go:#796B2A; --go-bg:#F0ECDB;
+  --good:#3C7162; --bad:#A3271B;
+  --shadow:0 1px 2px rgba(35,40,38,.05), 0 10px 26px rgba(35,40,38,.07);
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --ground:#101013; --surface:#181A1D; --surface-2:#202125;
+  --ink:#EAEBED; --muted:#989BA4; --line:#2F3137; --line-2:#46484E;
+  --accent:#77C5AF; --accent-soft:#162722; --accent-ink:#A4D5C7; --mark-bg:#77C5AF;
+  --br:#CD9970; --br-bg:#2D2016; --si:#B1B4BE; --si-bg:#26272C; --go:#D5C167; --go-bg:#332D15;
+  --good:#77C5AF; --bad:#E8776A;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px rgba(0,0,0,.38);
+}}
+:root[data-theme="dark"]{
+  --ground:#101013; --surface:#181A1D; --surface-2:#202125;
+  --ink:#EAEBED; --muted:#989BA4; --line:#2F3137; --line-2:#46484E;
+  --accent:#77C5AF; --accent-soft:#162722; --accent-ink:#A4D5C7; --mark-bg:#77C5AF;
+  --br:#CD9970; --br-bg:#2D2016; --si:#B1B4BE; --si-bg:#26272C; --go:#D5C167; --go-bg:#332D15;
+  --good:#77C5AF; --bad:#E8776A;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans Arabic","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-size:15px; line-height:1.65; -webkit-font-smoothing:antialiased;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+h1,h2,h3{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",system-ui,sans-serif;text-wrap:balance}
+.wrap{max-width:1000px;margin:0 auto;padding-inline:16px;padding-block:22px}
+.num{font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:disabled{cursor:default}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+[hidden]{display:none!important}
+a{color:var(--accent-ink)}
+.lane{height:3px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--line-2) 0 24px,transparent 24px 44px)}
+
+.mast{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:8px}
+.mark{width:52px;height:52px;flex:0 0 auto;border-radius:14px;background:var(--mark-bg);border:1px solid var(--line);
+  box-shadow:var(--shadow);position:relative;overflow:hidden}
+.mark img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:6px}
+.mast h1{margin:0;font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-.5px;line-height:1.15}
+.mast .tag{margin:3px 0 0;color:var(--muted);font-size:13.5px}
+.mast .nav{margin-inline-start:auto;display:flex;gap:8px}
+.mast .back{font-size:13px;font-weight:700;text-decoration:none;padding:9px 16px;border-radius:99px;border:1.5px solid var(--line-2)}
+.mast .back:hover{border-color:var(--accent)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.pad{padding:clamp(16px,3vw,24px)}
+.eyebrow{font-size:11.5px;letter-spacing:.14em;color:var(--muted);font-weight:700}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 26px;border-radius:12px;
+  background:var(--accent);color:#fff;font-weight:700;font-size:15px;box-shadow:var(--shadow)}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line-2);box-shadow:none}
+.btn.ghost:hover{border-color:var(--accent);filter:none}
+.btn.good{background:var(--good)} .btn.bad{background:var(--bad)}
+
+/* الإعداد */
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chip{font-size:12.5px;font-weight:700;padding:7px 13px;border-radius:99px;border:1.5px solid var(--line-2);background:var(--surface-2);transition:.13s}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink)}
+.chip.br[aria-pressed="true"]{border-color:var(--br);background:var(--br-bg);color:var(--br)}
+.chip.si[aria-pressed="true"]{border-color:var(--si);background:var(--si-bg);color:var(--si)}
+.chip.go[aria-pressed="true"]{border-color:var(--go);background:var(--go-bg);color:var(--go)}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.mode{text-align:right;padding:15px 17px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface-2)}
+.mode[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.mode h3{margin:0 0 4px;font-size:15px}
+.mode p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.6}
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;font-size:13px;color:var(--muted)}
+.stats b{font-family:"Noto Kufi Arabic",sans-serif;font-size:18px;color:var(--ink);margin-inline-end:5px}
+.hr{height:1px;background:var(--line);margin:18px 0}
+
+/* الجلسة */
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;font-size:13px;color:var(--muted)}
+.bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin-bottom:16px}
+.bar>i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .2s}
+.scene{perspective:1600px}
+.flip{display:grid;width:100%;min-height:340px;transition:transform .5s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d;cursor:pointer}
+.flip.on{transform:rotateY(180deg)}
+.face{grid-area:1/1;min-width:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;
+  border:1.5px solid var(--line);background:var(--surface);box-shadow:var(--shadow);padding:clamp(18px,3.5vw,32px);
+  display:flex;flex-direction:column;gap:12px}
+.face.back{transform:rotateY(180deg);background:var(--surface-2)}
+.face .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.face .k{font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:99px;border:1.5px solid var(--line-2);color:var(--muted)}
+.face .k.br{color:var(--br);border-color:var(--br);background:var(--br-bg)}
+.face .k.si{color:var(--si);border-color:var(--si);background:var(--si-bg)}
+.face .k.go{color:var(--go);border-color:var(--go);background:var(--go-bg)}
+.face .label{font-size:11.5px;letter-spacing:.14em;color:var(--muted);font-weight:700}
+.face .big{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(19px,2.6vw,26px);font-weight:600;line-height:1.65;margin:auto 0;text-wrap:balance}
+.face .hint{font-size:13px;color:var(--muted);margin-top:auto}
+.face .note{margin-top:auto;font-size:14.5px;line-height:1.75;padding:12px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--line)}
+.face .ref{font-size:12.5px;font-weight:700;color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.ctrl{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.ctrl .btn{flex:1;min-width:140px}
+.ctrl .sm{flex:0 0 auto;font-size:13px;padding:10px 16px}
+.keys{margin-top:12px;font-size:12px;color:var(--muted);text-align:center}
+.keys kbd{font:inherit;padding:1px 7px;border-radius:6px;border:1px solid var(--line-2);background:var(--surface-2);margin:0 2px}
+
+/* الخلاصة */
+.done{text-align:center;padding:34px 20px}
+.done .crown{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(26px,5vw,40px);font-weight:800;margin:8px 0 4px}
+.done .fs{display:flex;gap:14px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.done .fs div{padding:16px 26px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface-2);min-width:140px}
+.done .fs b{display:block;font-family:"Noto Kufi Arabic",sans-serif;font-size:28px}
+.done .fs span{font-size:13px;color:var(--muted)}
+
+.foot{margin-top:24px;padding-top:16px;font-size:12px;color:var(--muted);line-height:1.85;text-align:center}
+.foot a{color:var(--accent-ink);text-decoration:none;font-weight:600}
+.foot .credit{display:inline-block;margin-top:8px;font-weight:600;color:var(--ink)}
+@media (max-width:640px){ .modes{grid-template-columns:1fr} .flip{min-height:400px} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mark" aria-hidden="true"><img alt="" src="assets/brand/lahib-mark.webp" onerror="this.remove()"></div>
+    <div>
+      <h1>بطاقات المذاكرة</h1>
+      <p class="tag" id="tag">مراجعة أسئلة لاحِب للتحضير للمسابقة</p>
+    </div>
+    <nav class="nav"><a class="back" href="index.html">المسابقة</a><a class="back" href="about.html">عن لاحِب</a></nav>
+  </header>
+  <div class="lane"></div>
+
+  <!-- الإعداد -->
+  <section id="setup" class="card pad" style="margin-top:20px">
+    <div class="eyebrow">طريقة المراجعة</div>
+    <div class="modes">
+      <button class="mode" id="m-qa" aria-pressed="true" onclick="setMode('qa')">
+        <h3>سؤال ← جواب</h3><p>يظهر السؤال، تفكّر، ثم تقلب البطاقة لترى الإجابة والمعلومة والمرجع.</p>
+      </button>
+      <button class="mode" id="m-aq" aria-pressed="false" onclick="setMode('aq')">
+        <h3>جواب ← سؤال</h3><p>تظهر الإجابة مع الموضوع والرتبة، وتخمّن ما السؤال الذي تجيب عنه.</p>
+      </button>
+    </div>
+
+    <div class="hr"></div>
+    <div class="eyebrow">الرتب</div>
+    <div class="row" id="tiers"></div>
+
+    <div class="eyebrow" style="margin-top:18px">المواضيع</div>
+    <div class="row" style="margin-top:8px">
+      <button class="chip" onclick="allTopics(true)">تحديد الكل</button>
+      <button class="chip" onclick="allTopics(false)">إلغاء الكل</button>
+    </div>
+    <div class="row" id="topics"></div>
+
+    <div class="hr"></div>
+    <div class="row">
+      <button class="chip" id="f-review" aria-pressed="false" onclick="toggleReview()">بطاقات «أراجعها لاحقًا» فقط</button>
+      <button class="chip" onclick="resetProgress()">مسح سجل المراجعة</button>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="ctrl"><button class="btn" id="start" onclick="start()">ابدأ المراجعة</button></div>
+  </section>
+
+  <!-- الجلسة -->
+  <section id="session" hidden style="margin-top:20px">
+    <div class="top"><span id="pos"></span><span id="tally"></span></div>
+    <div class="bar"><i id="prog" style="width:0"></i></div>
+    <div class="scene">
+      <div class="flip" id="flip" onclick="flipCard()" role="button" aria-label="اقلب البطاقة" tabindex="0">
+        <div class="face front" id="front"></div>
+        <div class="face back" id="back"></div>
+      </div>
+    </div>
+    <div class="ctrl">
+      <button class="btn ghost sm" onclick="prev()">السابق</button>
+      <button class="btn ghost" onclick="flipCard()" id="flipbtn">اقلب البطاقة</button>
+      <button class="btn good" onclick="mark('known')">أعرفها</button>
+      <button class="btn bad" onclick="mark('review')">أراجعها لاحقًا</button>
+      <button class="btn ghost sm" onclick="quit()">إنهاء</button>
+    </div>
+    <p class="keys"><kbd>مسافة</kbd> اقلب · <kbd>١</kbd> أعرفها · <kbd>٢</kbd> أراجعها · <kbd>←</kbd> التالي · <kbd>→</kbd> السابق</p>
+  </section>
+
+  <!-- الخلاصة -->
+  <section id="done" class="card done" hidden style="margin-top:20px">
+    <div class="eyebrow">انتهت الجولة</div>
+    <p class="crown" id="d-title"></p>
+    <div class="fs" id="d-scores"></div>
+    <div class="ctrl" style="justify-content:center;margin-top:22px">
+      <button class="btn" id="d-again" onclick="startReview()">راجع ما علّمته «أراجعها لاحقًا»</button>
+      <button class="btn ghost" onclick="quit()">العودة للإعداد</button>
+    </div>
+  </section>
+
+  <footer class="foot">
+    مصدر الأسئلة: <strong>كود الطرق السعودي</strong> الصادر عن الهيئة العامة للطرق —
+    <a href="https://rga.gov.sa" target="_blank" rel="noopener noreferrer">rga.gov.sa</a>.
+    كل بطاقة مرفقة بمرجعها في الكود.<br>
+    «لاحِب» عمل توعوي مستقل، وليس منتجًا رسميًّا صادرًا عن الهيئة.<br>
+    <span class="credit">فكرة وإنشاء: <a href="https://www.linkedin.com/in/ghazi-alsaif/" target="_blank" rel="noopener noreferrer author">م. غازي السيف</a></span>
+  </footer>
+</div>
+
+<script src="data/bank.js"></script>
+<script>
+(function(){
+  var BANK = window.LAHIB_BANK, TIERS = BANK.tiers;
+  var AR = function(n){ return String(n).replace(/\d/g, function(d){ return "٠١٢٣٤٥٦٧٨٩"[d]; }); };
+  var esc = function(s){ var d=document.createElement('div'); d.textContent=s; return d.innerHTML; };
+  function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var x=a[i]; a[i]=a[j]; a[j]=x; } return a; }
+  var tierById = {}; TIERS.forEach(function(t){ tierById[t.id]=t; });
+
+  /* كل البطاقات مع مفتاح ثابت لحفظ التقدّم */
+  var CARDS = [];
+  BANK.topics.forEach(function(t){
+    TIERS.forEach(function(tier){
+      (t.q[tier.id]||[]).forEach(function(q,i){
+        CARDS.push({ key:t.id+'|'+tier.id+'|'+i, topic:t, tier:tier, q:q });
+      });
+    });
+  });
+
+  /* التقدّم في المتصفح (اختياري، لا يعطّل الصفحة إن تعذّر) */
+  var KEY = 'lahib.study.v1', progress = {};
+  try { progress = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ progress = {}; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(progress)); } catch(e){} }
+
+  var S = { mode:'qa', tiers:{br:true,si:true,go:true}, topics:{}, reviewOnly:false,
+            deck:[], i:0, flipped:false, known:0, review:0 };
+  BANK.topics.forEach(function(t){ S.topics[t.id]=true; });
+
+  document.getElementById('tag').textContent = AR(CARDS.length)+' بطاقة من '+AR(BANK.topics.length)+' مجلدًا';
+
+  /* ── الإعداد ── */
+  function renderSetup(){
+    document.getElementById('tiers').innerHTML = TIERS.map(function(t){
+      return '<button class="chip '+t.id+'" aria-pressed="'+S.tiers[t.id]+'" onclick="toggleTier(\''+t.id+'\')">'+esc(t.name)+' · '+AR(t.points)+'</button>';
+    }).join('');
+    document.getElementById('topics').innerHTML = BANK.topics.map(function(t){
+      return '<button class="chip" aria-pressed="'+S.topics[t.id]+'" onclick="toggleTopic(\''+t.id+'\')" title="'+esc(t.sub||'')+'">'+esc(t.name)+' <span class="num" style="opacity:.6">'+esc(t.vol)+'</span></button>';
+    }).join('');
+    document.getElementById('f-review').setAttribute('aria-pressed', String(S.reviewOnly));
+    var pool = filtered(), known=0, rev=0;
+    CARDS.forEach(function(c){ if(progress[c.key]==='known') known++; else if(progress[c.key]==='review') rev++; });
+    document.getElementById('stats').innerHTML =
+      '<span><b class="num">'+AR(pool.length)+'</b>بطاقة في هذه الجولة</span>'+
+      '<span><b class="num">'+AR(known)+'</b>أعرفها</span>'+
+      '<span><b class="num">'+AR(rev)+'</b>أراجعها لاحقًا</span>';
+    document.getElementById('start').disabled = pool.length===0;
+  }
+  function filtered(){
+    return CARDS.filter(function(c){
+      return S.tiers[c.tier.id] && S.topics[c.topic.id] && (!S.reviewOnly || progress[c.key]==='review');
+    });
+  }
+  window.setMode = function(m){
+    S.mode = m;
+    document.getElementById('m-qa').setAttribute('aria-pressed', String(m==='qa'));
+    document.getElementById('m-aq').setAttribute('aria-pressed', String(m==='aq'));
+  };
+  window.toggleTier = function(id){ S.tiers[id] = !S.tiers[id]; renderSetup(); };
+  window.toggleTopic = function(id){ S.topics[id] = !S.topics[id]; renderSetup(); };
+  window.allTopics = function(v){ BANK.topics.forEach(function(t){ S.topics[t.id]=v; }); renderSetup(); };
+  window.toggleReview = function(){ S.reviewOnly = !S.reviewOnly; renderSetup(); };
+  window.resetProgress = function(){ progress = {}; save(); renderSetup(); };
+
+  /* ── الجلسة ── */
+  window.start = function(){
+    S.deck = shuffle(filtered()); if(!S.deck.length) return;
+    S.i = 0; S.known = 0; S.review = 0;
+    show('session'); showCard();
+  };
+  window.startReview = function(){
+    S.reviewOnly = true; S.tiers = {br:true,si:true,go:true}; BANK.topics.forEach(function(t){ S.topics[t.id]=true; });
+    renderSetup(); window.start();
+  };
+  function show(id){
+    ['setup','session','done'].forEach(function(x){ document.getElementById(x).hidden = (x!==id); });
+    window.scrollTo({top:0});
+  }
+  function showCard(){
+    var c = S.deck[S.i], q = c.q, ans = q.opts[q.a];
+    S.flipped = false;
+    document.getElementById('flip').classList.remove('on');
+    var meta = '<div class="meta"><span class="k '+c.tier.id+'">'+esc(c.tier.name)+'</span>'+
+               '<span class="k">'+esc(c.topic.name)+' · مجلد '+esc(c.topic.vol)+'</span>'+
+               (progress[c.key] ? '<span class="k">'+(progress[c.key]==='known'?'✓ أعرفها':'↻ أراجعها')+'</span>' : '')+'</div>';
+    var detail = '<div class="note">'+esc(q.note||'')+'</div><div class="ref">المرجع: '+esc(q.ref)+'</div>';
+    if(S.mode==='qa'){
+      document.getElementById('front').innerHTML = meta+'<div class="label">السؤال</div><p class="big">'+esc(q.q)+'</p><div class="hint">اقلب البطاقة لترى الإجابة</div>';
+      document.getElementById('back').innerHTML  = meta+'<div class="label">الإجابة</div><p class="big" style="color:var(--good)">'+esc(ans)+'</p>'+detail;
+    } else {
+      document.getElementById('front').innerHTML = meta+'<div class="label">الإجابة</div><p class="big" style="color:var(--good)">'+esc(ans)+'</p><div class="hint">ما السؤال الذي هذه إجابته؟ اقلب لتتحقق</div>';
+      document.getElementById('back').innerHTML  = meta+'<div class="label">السؤال</div><p class="big">'+esc(q.q)+'</p>'+detail;
+    }
+    document.getElementById('pos').textContent = 'البطاقة '+AR(S.i+1)+' من '+AR(S.deck.length);
+    document.getElementById('tally').textContent = 'أعرفها '+AR(S.known)+' · أراجعها '+AR(S.review);
+    document.getElementById('prog').style.width = (S.i/S.deck.length*100)+'%';
+  }
+  window.flipCard = function(){
+    S.flipped = !S.flipped;
+    document.getElementById('flip').classList.toggle('on', S.flipped);
+  };
+  window.mark = function(v){
+    var c = S.deck[S.i];
+    progress[c.key] = v; save();
+    if(v==='known') S.known++; else S.review++;
+    next();
+  };
+  function next(){
+    if(S.i+1 >= S.deck.length){ finish(); return; }
+    S.i++; showCard();
+  }
+  window.next = next;
+  window.prev = function(){ if(S.i>0){ S.i--; showCard(); } };
+  window.quit = function(){ renderSetup(); show('setup'); };
+  function finish(){
+    document.getElementById('prog').style.width = '100%';
+    var n = S.deck.length;
+    document.getElementById('d-title').textContent = S.review===0 ? 'أتقنت الجولة كاملة' : 'راجعت '+AR(n)+' بطاقة';
+    document.getElementById('d-scores').innerHTML =
+      '<div><b class="num" style="color:var(--good)">'+AR(S.known)+'</b><span>أعرفها</span></div>'+
+      '<div><b class="num" style="color:var(--bad)">'+AR(S.review)+'</b><span>أراجعها لاحقًا</span></div>'+
+      '<div><b class="num">'+AR(n)+'</b><span>المجموع</span></div>';
+    document.getElementById('d-again').hidden = S.review===0;
+    show('done');
+  }
+
+  /* لوحة المفاتيح */
+  document.addEventListener('keydown', function(e){
+    if(document.getElementById('session').hidden) return;
+    if(e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    if(e.key===' '){ e.preventDefault(); window.flipCard(); }
+    else if(e.key==='1' || e.key==='١'){ window.mark('known'); }
+    else if(e.key==='2' || e.key==='٢'){ window.mark('review'); }
+    else if(e.key==='ArrowLeft'){ next(); }
+    else if(e.key==='ArrowRight'){ window.prev(); }
+  });
+
+  renderSetup();
+})();
+</script>
+</body>
+</html>
