@@ -1,0 +1,105 @@
+#!/usr/bin/env python3
+"""يولّد نسخة PDF من بنك أسئلة لاحِب للمراجعة: data/lahib-bank.pdf
+   الطريقة: يبني صفحة HTML عربية (اتجاه يمين-يسار) ثم يطبعها بمتصفح Chromium بلا واجهة.
+   الاستخدام: python3 tools/build-pdf.py
+   يحتاج: chromium أو google-chrome، وخطي Noto Kufi Arabic وIBM Plex Sans Arabic (أو بديل عربي)."""
+import json, os, re, sys, subprocess, tempfile, shutil, datetime, html
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT  = os.path.join(ROOT, "data", "lahib-bank.pdf")
+
+def AR(n): return str(n).translate(str.maketrans("0123456789", "٠١٢٣٤٥٦٧٨٩"))
+def esc(s): return html.escape(str(s), quote=False)
+
+src = open(os.path.join(ROOT, "data", "bank.js"), encoding="utf-8").read()
+bank = json.loads(src[re.search(r"window\.LAHIB_BANK\s*=\s*", src).end():].rstrip().rstrip(";"))
+tiers = bank["tiers"]; topics = bank["topics"]
+total = sum(len(t["q"][x["id"]]) for t in topics for x in tiers)
+today = datetime.date.today()
+KEYS = ["أ", "ب", "ج", "د"]
+
+css = """
+@page{ size:A4; margin:18mm 16mm 18mm 16mm }
+*{box-sizing:border-box}
+html{direction:rtl}
+body{font-family:"IBM Plex Sans Arabic","Noto Sans Arabic",sans-serif;font-size:11.5pt;line-height:1.7;color:#1D1F26;margin:0}
+h1,h2,h3,.k{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",sans-serif}
+.cover{height:250mm;display:flex;flex-direction:column;justify-content:center;text-align:center;break-after:page}
+.cover .word{font-family:"Noto Kufi Arabic",sans-serif;font-size:64pt;font-weight:800;color:#3C7162;line-height:1.1;margin:0}
+.cover .sub{font-size:16pt;color:#4a4d57;margin:6mm 0 0}
+.cover .meta{margin-top:14mm;font-size:11pt;color:#6B6D76;line-height:2}
+.cover .rule{width:60mm;height:3px;margin:10mm auto;background:repeating-linear-gradient(90deg,#B9BBC1 0 6mm,transparent 6mm 10mm)}
+.cover .disc{margin-top:16mm;font-size:9.5pt;color:#6B6D76}
+.toc{break-after:page}
+.toc h2{font-size:18pt;margin:0 0 6mm}
+.toc table{width:100%;border-collapse:collapse;font-size:10.5pt}
+.toc td{padding:2mm 2mm;border-bottom:1px solid #E4E5E8}
+.toc td.n{width:14mm;color:#6B6D76;font-variant-numeric:tabular-nums}
+.toc td.v{width:22mm;color:#6B6D76;font-variant-numeric:tabular-nums}
+.toc td.s{color:#6B6D76;font-size:9.5pt}
+.topic{break-before:page}
+.thead{border-inline-start:4px solid #3C7162;padding:2mm 4mm;margin:0 0 5mm;background:#EDF3F1;border-radius:0 3mm 3mm 0}
+.thead h2{margin:0;font-size:17pt;font-weight:800}
+.thead p{margin:0;color:#4a4d57;font-size:10.5pt}
+.tier{margin:5mm 0 2mm;font-size:12.5pt;font-weight:800;padding:1.2mm 3mm;border-radius:2mm;display:inline-block}
+.t-br{color:#7B502D;background:#F5ECE6}.t-si{color:#4f5260;background:#EBECEF}.t-go{color:#796B2A;background:#F0ECDB}
+.q{break-inside:avoid;margin:0 0 4.5mm;padding:3mm 3.5mm;border:1px solid #DCDDE0;border-radius:2.5mm}
+.q .qt{margin:0 0 2mm;font-weight:700;font-size:11.5pt}
+.q .qt b{color:#3C7162;font-variant-numeric:tabular-nums;margin-inline-end:2mm}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:1mm 5mm;margin:0 0 2.5mm;padding:0;list-style:none;font-size:10.5pt}
+.opts li{padding-inline-start:7mm;position:relative}
+.opts li .k{position:absolute;inset-inline-start:0;top:0;width:5.5mm;height:5.5mm;border-radius:1.5mm;border:1px solid #B9BBC1;
+  display:inline-grid;place-items:center;font-size:8.5pt;font-weight:700;color:#6B6D76;margin-top:1.1mm}
+.opts li.right{font-weight:700;color:#285246}
+.opts li.right .k{background:#3C7162;color:#fff;border-color:#3C7162}
+.ans{background:#EDF3F1;border-radius:2mm;padding:2mm 3mm;font-size:10pt;line-height:1.65}
+.ans b{color:#285246}
+.ans .ref{display:block;color:#285246;font-weight:700;font-size:9.5pt;margin-top:1mm;font-variant-numeric:tabular-nums}
+.foot{position:fixed;bottom:-12mm;left:0;right:0;text-align:center;font-size:8.5pt;color:#9a9ca4}
+"""
+
+parts = [f"""<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>لاحِب — بنك الأسئلة</title><style>{css}</style></head><body>
+<section class="cover">
+  <p class="word">لاحِب</p>
+  <p class="sub">بنك أسئلة كود الطرق السعودي — نسخة المراجعة</p>
+  <div class="rule"></div>
+  <p class="meta">{AR(total)} سؤالًا في {AR(len(topics))} موضوعًا، موضوع لكل مجلد من مجلدات الكود<br>
+  ثلاث رتب: برونزي (معلومة تأسيسية) · فضي (اشتراط أو قاعدة) · ذهبي (قيمة دقيقة)<br>
+  كل سؤال مرفق بإجابته ومعلومة تُثبّت ومرجعه في الكود (المجلد والبند والصفحة)<br>
+  الإصدار {esc(bank.get('version','') )} — {AR(today.strftime('%Y/%m/%d'))}</p>
+  <p class="disc">مصدر الأسئلة: كود الطرق السعودي الصادر عن الهيئة العامة للطرق، والمرجع عند أي اختلاف هو نص الكود نفسه.<br>
+  «لاحِب» عمل توعوي مستقل، وليس منتجًا رسميًّا صادرًا عن الهيئة.<br>فكرة وإنشاء: م. غازي السيف</p>
+</section>
+<section class="toc"><h2>المحتويات</h2><table>"""]
+for i, t in enumerate(topics, 1):
+    n = sum(len(t["q"][x["id"]]) for x in tiers)
+    parts.append(f'<tr><td class="n">{AR(i)}</td><td><b>{esc(t["name"])}</b></td><td class="s">{esc(t.get("sub",""))}</td><td class="v">مجلد {esc(t["vol"])}</td><td class="n">{AR(n)}</td></tr>')
+parts.append("</table></section>")
+
+for i, t in enumerate(topics, 1):
+    parts.append(f'<section class="topic"><div class="thead"><h2>{AR(i)}. {esc(t["name"])}</h2><p>{esc(t.get("sub",""))} — مجلد {esc(t["vol"])}</p></div>')
+    num = 0
+    for x in tiers:
+        qs = t["q"].get(x["id"], [])
+        if not qs: continue
+        parts.append(f'<div class="tier t-{x["id"]}">{esc(x["name"])} · {AR(x["points"])} نقطة</div>')
+        for q in qs:
+            num += 1
+            opts = "".join(f'<li class="{"right" if j==q["a"] else ""}"><span class="k">{KEYS[j]}</span>{esc(o)}</li>' for j, o in enumerate(q["opts"]))
+            parts.append(f'<div class="q"><p class="qt"><b>{AR(num)}.</b>{esc(q["q"])}</p><ul class="opts">{opts}</ul>'
+                         f'<div class="ans"><b>الإجابة:</b> {esc(q["opts"][q["a"]])}<br>{esc(q.get("note",""))}'
+                         f'<span class="ref">المرجع: {esc(q["ref"])}</span></div></div>')
+    parts.append("</section>")
+parts.append("</body></html>")
+
+tmp = tempfile.mkdtemp(prefix="lahib-pdf-")
+page = os.path.join(tmp, "bank.html")
+open(page, "w", encoding="utf-8").write("".join(parts))
+
+chrome = next((c for c in ("chromium", "chromium-browser", "google-chrome", "google-chrome-stable") if shutil.which(c)), None)
+if not chrome: sys.exit("✗ لم يُعثر على Chromium لطباعة PDF")
+cmd = [chrome, "--headless=new", "--no-sandbox", "--disable-gpu", "--no-pdf-header-footer",
+       "--virtual-time-budget=8000", f"--print-to-pdf={OUT}", "file://" + page]
+subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=300)
+shutil.rmtree(tmp, ignore_errors=True)
+print(f"✓ {os.path.relpath(OUT, ROOT)} — {os.path.getsize(OUT)//1024} كيلوبايت، {AR(total)} سؤالًا")
