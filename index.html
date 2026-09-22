@@ -82,12 +82,12 @@ img{max-width:100%}
 /* الترويسة */
 .mast{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:8px}
 .mark{
-  width:52px;height:52px;flex:0 0 auto;border-radius:14px;background:var(--mark-bg);border:1px solid var(--line);
+  width:52px;height:52px;flex:0 0 auto;border-radius:14px;background:var(--mark-bg);
   display:grid;place-items:center;box-shadow:var(--shadow)
 }
 .mark{position:relative;overflow:hidden}
 .mark svg{width:30px;height:30px;display:block}
-.mark .mark-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box}
+.mark .mark-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .mark .mark-img + svg{visibility:hidden}
 .mast h1{margin:0;font-size:clamp(27px,4.6vw,40px);font-weight:800;letter-spacing:-.5px;line-height:1.15}
 .mast .tag{margin:3px 0 0;color:var(--muted);font-size:13.5px}
@@ -309,7 +309,7 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
 
   <header class="mast">
     <div class="mark" aria-hidden="true">
-      <img class="mark-img" alt="" src="assets/brand/lahib-mark.webp"
+      <img class="mark-img" alt="" src="assets/brand/lahib-icon.webp"
            onerror="this.remove();this.parentNode.classList.add('fallback')">
       <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round">
         <path d="M5 21 L10 3"/><path d="M19 21 L14 3"/>
