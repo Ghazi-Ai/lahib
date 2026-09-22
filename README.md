@@ -14,6 +14,18 @@
 
 ---
 
+## الاستئناف من أي جهاز
+
+المشروع مستودعان: هذا المستودع العام للموقع، ومستودع خاص `lahib-work` لملفات العمل (مجلدات الكود الأصلية ونصوصها وأدوات كتابة الأسئلة) يُستنسخ داخله باسم `_work/`:
+
+```bash
+git clone https://github.com/Ghazi-Ai/lahib.git shc-quiz
+cd shc-quiz
+git clone https://github.com/Ghazi-Ai/lahib-work.git _work
+```
+
+الدليل الكامل لأي مساعد برمجي في `AGENTS.md`، وتقرأه Claude Code وCodex وGemini CLI تلقائيًا.
+
 ## بطاقات المذاكرة
 
 `study.html` صفحة مراجعة للتحضير قبل المسابقة، تقرأ بنك الأسئلة نفسه:

@@ -1,0 +1,147 @@
+# AGENTS.md — the single guide for any assistant working on Lahib
+
+This file is the canonical, model-agnostic guide. `CLAUDE.md` (Claude Code) and `GEMINI.md` (Gemini CLI) only import it; Codex CLI reads it natively; for ChatGPT or any web model, paste this file first. **Edit this file only, never the pointers.**
+
+## Two repositories, two roles
+
+The work lives in two Git repositories, and the split is deliberate. Keep both up to date after every session, because the owner continues from several machines and several models.
+
+| | Public: `lahib` | Private: `lahib-work` |
+|---|---|---|
+| URL | https://github.com/Ghazi-Ai/lahib | https://github.com/Ghazi-Ai/lahib-work |
+| Serves | the site at https://ghazi-ai.github.io/lahib/ (GitHub Pages, branch `main`, root) | nothing; it is a working folder |
+| Location on disk | the project folder (`shc-quiz/`) | cloned **inside** the project as `_work/` (that path is gitignored by the public repo, so the nested clone is safe) |
+| Contains | the three pages, `data/bank.js` and its PDF, `assets/`, `tools/`, `README.md`, `AGENTS.md` + pointers, `TODO.md` | `PRIVATE.md` (context that must not be public: purpose, audience, personal decisions), `pdf/` (the 25 source volumes of the code, about 400 MB), `text/` (normalised text of the 25 code volumes with `[[Pn]]` page markers), `facts.py`, `norm.py`, `merge.py`, `bankparts/` (question drafts), `png-originals/` (generated images before WebP) |
+| Rule | **anything here is visible to the world**: no purpose statements, no names of committees or audiences, no working notes | everything needed to *produce* content but not to *run* the site |
+
+What goes where, in one line: **if the site needs it to run, or a reader of the code needs it, it is public; if it explains why we do this or feeds the writing of questions, it is private.**
+
+Only one thing is in neither repo: `assets/brand/rga-reference.png`, the Authority's logo used once to derive the palette. Everything else, including the 25 source PDFs, arrives with the two clones below.
+
+## Resuming on another machine
+
+```bash
+git clone https://github.com/Ghazi-Ai/lahib.git shc-quiz
+cd shc-quiz
+git clone https://github.com/Ghazi-Ai/lahib-work.git _work     # private; needs your GitHub login
+cat AGENTS.md _work/PRIVATE.md TODO.md                          # read these three, in this order
+python3 tools/validate.py && node tools/test-game.mjs           # confirm the checkout is healthy
+```
+
+Before ending any session: run the checks, commit the public repo, and if you touched anything under `_work/` commit that repo too (`cd _work && git add -A && git commit -m "…" && git push`). Commit messages are in Arabic, with no co-author trailers of any kind.
+
+## What this is
+
+**لاحِب (Lahib)** — an Arabic-language, two-team quiz game about the **Saudi Highway Code** (كود الطرق السعودي), published as an independent awareness project. Why it exists and for whom is written in `_work/PRIVATE.md`, not here.
+
+It is a **static site with no build step, no dependencies, and no server**. `index.html` opens directly from `file://` and also works unchanged on GitHub Pages. Do not introduce a bundler, framework, package manager, or Docker — the zero-tooling property is a deliberate requirement, not an accident.
+
+The UI is entirely Arabic and RTL (`<html dir="rtl">`). Write user-facing strings, comments in data files, and tool output in Arabic.
+
+## Where the work stands
+
+`TODO.md` holds the live task list, the decisions already settled (do not reopen them), and the
+deferred ideas. **Read it before proposing next steps.** The short version: the game, the study
+page, the about page, all 32 images and the PDF are done and live; what remains is human review
+of the numeric questions and a trademark check on the name.
+
+## Commands
+
+```bash
+python3 tools/validate.py        # structural check of the question bank
+node   tools/test-game.mjs       # 52 functional assertions on game logic
+python3 tools/check-images.py    # which of the 32 images are present / wrong size
+python3 tools/build-pdf.py       # regenerate data/lahib-bank.pdf (review copy of the bank, via headless Chromium)
+```
+
+Re-run `build-pdf.py` after any bank change and commit the PDF with it; the study page links to it.
+
+Run `validate.py` after any edit to `data/bank.js` and `test-game.mjs` after any edit to the game script in `index.html`. There is no lint step and no test runner — `test-game.mjs` is a single plain Node script.
+
+To run one assertion group, comment out the others in `tools/test-game.mjs`; the file is a linear script of `ok(...)` calls, not a framework.
+
+## Architecture
+
+### Two files carry everything (plus one study page)
+
+- **`data/bank.js`** — the question bank, assigned to `window.LAHIB_BANK`. This is the "database": expanding or shrinking it is the intended way to change game content, and nothing else needs to be touched.
+- **`index.html`** — the whole game: styles, markup, and logic in one file. The logic is a single IIFE at the bottom.
+
+It is deliberately `.js` and not `.json` so the browser can load it over `file://`, where `fetch()` of a local JSON file is blocked. Keep it that way.
+
+**`study.html`** is a self-contained flashcard page for revision. It loads the same `data/bank.js`, so it needs no maintenance when the bank changes. Two modes (question → answer, answer → question; the back shows only the answer, note and ref, never the four options, by the user's decision), filters by tier and topic, "known / review later" marks kept in `localStorage` under `lahib.study.v1` (wrapped in try/catch; the page works without storage), keyboard shortcuts, and a review-only pass. It duplicates the theme tokens from `index.html` on purpose (no shared CSS file, to keep each page openable on its own); when you change a colour token, change it in both files. The gate screen links to it.
+
+**`about.html`** is the project's own "about" page (name, idea, purpose, principles, author). Static, same theme tokens, no script. Keep its wording formal and reference-faithful; it is the first page a new reader sees.
+
+**Expanding the bank** is done in parts: write `_work/bankparts/new-<vol>.json` (`{"vol","br":[…],"si":[…],"go":[…]}`) and run `python3 _work/merge.py` (`--dry` to preview). It validates shape, requires a page number in `ref`, drops questions whose normalised text already exists, bumps `version`/`updated`, and rewrites `bank.js` with the same one-space JSON indent.
+
+### Bank shape
+
+```js
+window.LAHIB_BANK = {
+  tiers:  [{id:"br",name:"برونزي",points:100}, {id:"si",…,250}, {id:"go",…,500}],
+  topics: [{ id:"v301", name, sub, vol:"301",
+             q:{ br:[…], si:[…], go:[…] } }]      // 25 topics, one per code volume
+};
+```
+
+Each question: `{ q, opts:[4], a:<index 0-3>, ref, note }`.
+
+- `ref` (volume + clause + page in the code) is mandatory — it is what settles disputes during play and makes the game a teaching tool rather than trivia.
+- `note` is the "معلومة تُثبّت" line shown after the answer is revealed, explaining *why* the requirement exists.
+- Option order is shuffled at render time, so `a` is an index into the authored `opts` array, never a display position.
+
+Topic `id` doubles as the image filename stem (`v301` → `assets/topics/v301.webp`) and its first digit selects the colour group (`--g1`…`--g8`).
+
+### Game flow
+
+Five `<section>` screens toggled by `.hidden`, driven by the `S` state object:
+`gate` → `picking` → `boardview` ⇄ `qview` → `final`
+
+Only eight functions are on `window` (they are wired from inline `onclick`): `setMode`, `updateSize`, `startPicking`, `judge`, `nextTurn`, `useAid`, `adjust`, `swapNow`. Everything else is private to the IIFE. `tools/test-game.mjs` drives the game through exactly this surface plus synthetic cell clicks, so **keep these eight exported** or the tests lose their entry points.
+
+### Rules encoded in the logic
+
+Changing any of these means changing the tests too:
+
+- **Topics per team** = `min(team size, 4)`, chosen from three cards (2 / 3 / 4+) through `updateSize(n)`; the board is always **two rows** of `perTeam` columns, centred (falls back to two columns under 520 px); cells per topic = `3 tiers × CELLS_PER_TIER (2)`. So a game is 24, 36, or 48 questions.
+- **Phase A** (team whose turn it is): 60 s, options visible immediately (the old 30 s hold was removed on 2026-09-22 at the user's request).
+- **Phase B** (other team): 20 s, options visible immediately. The second team *always* answers, even when the first was right.
+- **Scoring**: the turn team wins the points if correct; only if it is wrong do the points pass to the other team. Both wrong → no points. Turn alternates after every question regardless of outcome.
+- **`hard` mode**: tier `go` has no options at all — the presenter judges via `judge(true|false)`. Tiers `br` and `si` behave normally.
+- A timeout is resolved as a wrong answer through the same `resolve(false)` path.
+- **Lifelines** (`useAid(kind)`): each team has `aids:{half,swap,help}`, each usable **once per game**, and **only by the turn team during Phase A** (`aidAvailable` checks `c.phase==='A'`; the bar is hidden in Phase B). `half` hides two wrong options for the whole question, so the second team also sees only two (`S.cur.half`). `swap` is two-step: `useAid('swap')` stops the timer and reveals the current question's answer, note and ref (no points, `S.cur.swapping` blocks answers and other aids), then the presenter's `swapNow()` draws an unused question of the same topic and tier, resets the cell's question, and restarts Phase A. `help` adds 30 s via `extendTimer` and tells the team it may consult the audience. `hard`-mode gold questions have no options, so `half` is disabled there.
+- **Presenter score control** (`adjust(team, ±50)`): the ± buttons on the score cards let the presenter correct a misclick or apply a penalty; score is clamped at 0.
+
+Scores are re-rendered by `renderBoard()` on return to the board and by `adjust()`; the score cards also show which lifelines each team has left. The board's column heads reuse the topic image; the cells carry a faint rank-medallion watermark (`--medal` per tier).
+
+### Theming
+
+Every colour is a CSS custom property declared three times: bare `:root` (light), `@media (prefers-color-scheme:dark)` guarded by `:root:not([data-theme="light"])`, and `:root[data-theme="dark"]`. Never define a colour only inside a media or `[data-theme]` block.
+
+The palette is **derived from the Roads General Authority logo**, not chosen freely: `#4D7F71` (green), `#B7A44D` (gold), `#76777A` (warm grey), with light/dark ramps computed to hold ≥4.5:1 contrast. `assets/brand/rga-reference.png` is the source image, kept locally and gitignored.
+
+### Images
+
+All 32 images now exist as WebP (about 1.4 MB total; the favicon stays PNG). The generated PNG originals are kept in `_work/png-originals/` (gitignored) and are the source for any re-export: `magick in.png -strip -quality 82 -define webp:method=6 out.webp`. All images are still optional at runtime. Every `<img>` carries `onerror="this.remove()"` and its container renders a coloured fallback, so the interface is complete with or without them. `assets/IMAGE-BRIEF.md` holds the generation prompts (25 topic cards, 2 mode cards, 3 rank medallions, 1 logo).
+
+The adopted style is **photorealistic 3D render** (decided 2026-09-22 after a flat-vector trial looked too bare); only the Lahib logo mark stays flat vector. One self-contained prompt per image lives in `assets/prompts/` (31 files, each ending with its save path), generated through the Codex CLI's image tool.
+
+**Identity constraint:** images may inherit the Authority's colours and calm institutional look, but must never reproduce its logo or any of its elements — no palm tree, no shield, no crest, no government emblem. No text of any kind inside generated images; all wording is set by the page over the image. The **official Lahib logo is the white road on a green rounded square** (`assets/brand/lahib-icon.png` for the tab, `.webp` copy in every header); the earlier green-on-transparent mark was dropped by the user's decision. The footer states that Lahib is an independent awareness project, not an official Authority product — keep that line. The footer credits the author as "فكرة وإعداد وإشراف: م. غازي السيف" (LinkedIn link) followed by "نُفّذ بأدوات برمجية مساعدة تحت إشرافه ومراجعته." on every page, the PDF cover and README. Never write "إنشاء", "تصميم وتطوير" or "برمجة" next to the name: the user chose this wording to state truthfully that execution was tool-assisted under their supervision. Keep it on all surfaces in sync.
+
+## `_work/` (the private repo)
+
+Holds the normalised text extracted from the 25 code PDFs (`_work/text/*.txt`, one per volume, with `[[Pn]]` page markers) plus the harvesting scripts. Use these when writing new questions — `python3 _work/facts.py <volume> <count>` prints requirement statements that contain numbers, each prefixed with its page number, which is where `ref` values come from. The source PDFs are in `_work/pdf/` (`101 AR.pdf` … `801 AR.pdf`).
+
+Arabic text extracted from these PDFs needs NFKC normalisation and stripping of bidi control characters (`norm.py` does this); volume 308 additionally uses Persian yeh/kaf codepoints that must be folded to Arabic.
+
+## Conventions worth keeping
+
+- Content decisions live in `TODO.md` under "قرارات محسومة". Treat that list as binding unless the
+  user reopens an item.
+- When adding questions, take the `ref` from the page marker in `_work/text/`, never from memory —
+  the whole value of the bank is that every answer is traceable to a page of the code.
+
+## Owner and attribution
+
+The owner is م. غازي السيف (LinkedIn: https://www.linkedin.com/in/ghazi-alsaif/). All public surfaces credit the work exactly as described under *Images → Identity constraint* above; the private file has the rest of the context. Never add tool or model names as authors or co-authors anywhere: not in commits, not in pages, not in the PDF.
