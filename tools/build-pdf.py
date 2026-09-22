@@ -16,7 +16,6 @@ bank = json.loads(src[re.search(r"window\.LAHIB_BANK\s*=\s*", src).end():].rstri
 tiers = bank["tiers"]; topics = bank["topics"]
 total = sum(len(t["q"][x["id"]]) for t in topics for x in tiers)
 today = datetime.date.today()
-KEYS = ["أ", "ب", "ج", "د"]
 
 css = """
 @page{ size:A4; margin:18mm 16mm 18mm 16mm }
@@ -44,14 +43,8 @@ h1,h2,h3,.k{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",sans-serif}
 .tier{margin:5mm 0 2mm;font-size:12.5pt;font-weight:800;padding:1.2mm 3mm;border-radius:2mm;display:inline-block}
 .t-br{color:#7B502D;background:#F5ECE6}.t-si{color:#4f5260;background:#EBECEF}.t-go{color:#796B2A;background:#F0ECDB}
 .q{break-inside:avoid;margin:0 0 4.5mm;padding:3mm 3.5mm;border:1px solid #DCDDE0;border-radius:2.5mm}
-.q .qt{margin:0 0 2mm;font-weight:700;font-size:11.5pt}
+.q .qt{margin:0 0 1.5mm;font-weight:700;font-size:11.5pt}
 .q .qt b{color:#3C7162;font-variant-numeric:tabular-nums;margin-inline-end:2mm}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:1mm 5mm;margin:0 0 2.5mm;padding:0;list-style:none;font-size:10.5pt}
-.opts li{padding-inline-start:7mm;position:relative}
-.opts li .k{position:absolute;inset-inline-start:0;top:0;width:5.5mm;height:5.5mm;border-radius:1.5mm;border:1px solid #B9BBC1;
-  display:inline-grid;place-items:center;font-size:8.5pt;font-weight:700;color:#6B6D76;margin-top:1.1mm}
-.opts li.right{font-weight:700;color:#285246}
-.opts li.right .k{background:#3C7162;color:#fff;border-color:#3C7162}
 .ans{background:#EDF3F1;border-radius:2mm;padding:2mm 3mm;font-size:10pt;line-height:1.65}
 .ans b{color:#285246}
 .ans .ref{display:block;color:#285246;font-weight:700;font-size:9.5pt;margin-top:1mm;font-variant-numeric:tabular-nums}
@@ -65,7 +58,7 @@ parts = [f"""<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8
   <div class="rule"></div>
   <p class="meta">{AR(total)} سؤالًا في {AR(len(topics))} موضوعًا، موضوع لكل مجلد من مجلدات الكود<br>
   ثلاث رتب: برونزي (معلومة تأسيسية) · فضي (اشتراط أو قاعدة) · ذهبي (قيمة دقيقة)<br>
-  كل سؤال مرفق بإجابته ومعلومة تُثبّت ومرجعه في الكود (المجلد والبند والصفحة)<br>
+  سؤال وجواب: كل سؤال مرفق بإجابته ومعلومة تُثبّت ومرجعه في الكود (المجلد والبند والصفحة)<br>
   الإصدار {esc(bank.get('version','') )} — {AR(today.strftime('%Y/%m/%d'))}</p>
   <p class="disc">مصدر الأسئلة: كود الطرق السعودي الصادر عن الهيئة العامة للطرق، والمرجع عند أي اختلاف هو نص الكود نفسه.<br>
   «لاحِب» عمل توعوي مستقل، وليس منتجًا رسميًّا صادرًا عن الهيئة.<br>فكرة وإنشاء: م. غازي السيف</p>
@@ -85,8 +78,7 @@ for i, t in enumerate(topics, 1):
         parts.append(f'<div class="tier t-{x["id"]}">{esc(x["name"])} · {AR(x["points"])} نقطة</div>')
         for q in qs:
             num += 1
-            opts = "".join(f'<li class="{"right" if j==q["a"] else ""}"><span class="k">{KEYS[j]}</span>{esc(o)}</li>' for j, o in enumerate(q["opts"]))
-            parts.append(f'<div class="q"><p class="qt"><b>{AR(num)}.</b>{esc(q["q"])}</p><ul class="opts">{opts}</ul>'
+            parts.append(f'<div class="q"><p class="qt"><b>{AR(num)}.</b>{esc(q["q"])}</p>'
                          f'<div class="ans"><b>الإجابة:</b> {esc(q["opts"][q["a"]])}<br>{esc(q.get("note",""))}'
                          f'<span class="ref">المرجع: {esc(q["ref"])}</span></div></div>')
     parts.append("</section>")
