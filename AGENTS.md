@@ -52,8 +52,8 @@ The UI is entirely Arabic and RTL (`<html dir="rtl">`). Write user-facing string
 `TODO.md` holds the live task list, the decisions already settled (do not reopen them), and the
 deferred ideas. **Read it before proposing next steps.** The short version: the game, the study
 page, the about page, all 32 images and the PDF are done and live; the bank was fully reviewed against the
-source and corrected on 2026-09-23 (version 2.1); what remains is a human pass over the rewritten
-questions and a trademark check on the name.
+source and corrected on 2026-09-23 (version 2.1); technical terms follow the code's own English (2026-09-24).
+The trademark check is out of scope by the owner's decision.
 
 ## Commands
 
