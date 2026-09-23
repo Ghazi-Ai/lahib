@@ -2,7 +2,7 @@
 """يولّد نسخة PDF من بنك أسئلة لاحِب للمراجعة: data/lahib-bank.pdf
    الطريقة: يبني صفحة HTML عربية (اتجاه يمين-يسار) ثم يطبعها بمتصفح Chromium بلا واجهة.
    الاستخدام: python3 tools/build-pdf.py
-   يحتاج: chromium أو google-chrome، وخطي Noto Kufi Arabic وIBM Plex Sans Arabic (أو بديل عربي)."""
+   يحتاج: chromium أو google-chrome، وخط Cairo (خط الهوية الرسمي؛ نسخته في _work/brand/fonts/) أو بديل عربي."""
 import json, os, re, sys, subprocess, tempfile, shutil, datetime, html
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,10 +21,10 @@ css = """
 @page{ size:A4; margin:18mm 16mm 18mm 16mm }
 *{box-sizing:border-box}
 html{direction:rtl}
-body{font-family:"IBM Plex Sans Arabic","Noto Sans Arabic",sans-serif;font-size:11.5pt;line-height:1.7;color:#1D1F26;margin:0}
-h1,h2,h3,.k{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",sans-serif}
+body{font-family:"Cairo","Noto Sans Arabic",sans-serif;font-size:11.5pt;line-height:1.7;color:#1D1F26;margin:0}
+h1,h2,h3,.k{font-family:"Cairo",sans-serif}
 .cover{height:250mm;display:flex;flex-direction:column;justify-content:center;text-align:center;break-after:page}
-.cover .word{font-family:"Noto Kufi Arabic",sans-serif;font-size:64pt;font-weight:800;color:#3C7162;line-height:1.1;margin:0}
+.cover .word{font-family:"Cairo",sans-serif;font-size:64pt;font-weight:800;color:#3C7162;line-height:1.1;margin:0}
 .cover .sub{font-size:16pt;color:#4a4d57;margin:6mm 0 0}
 .cover .meta{margin-top:14mm;font-size:11pt;color:#6B6D76;line-height:2}
 .cover .rule{width:60mm;height:3px;margin:10mm auto;background:repeating-linear-gradient(90deg,#B9BBC1 0 6mm,transparent 6mm 10mm)}

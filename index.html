@@ -9,7 +9,7 @@
 <meta name="author" content="غازي السيف">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap">
 <style>
 :root{
   --ground:#F0F0F2; --surface:#FFFFFF; --surface-2:#F7F7F9;
@@ -63,11 +63,11 @@
 html,body{min-height:100%}
 body{
   margin:0; background:var(--ground); color:var(--ink);
-  font-family:"IBM Plex Sans Arabic","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-family:"Cairo","Segoe UI",system-ui,-apple-system,sans-serif;
   font-size:15px; line-height:1.65; -webkit-font-smoothing:antialiased;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-h1,h2,h3,.disp{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",system-ui,sans-serif;text-wrap:balance}
+h1,h2,h3,.disp{font-family:"Cairo",system-ui,sans-serif;text-wrap:balance}
 .wrap{max-width:1240px;margin:0 auto;padding-inline:16px;padding-block:22px}
 .num{font-variant-numeric:tabular-nums}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
@@ -101,7 +101,7 @@ img{max-width:100%}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 .size-card{text-align:center;padding:15px 13px}
-.size-card b{display:block;font-family:"Noto Kufi Arabic",sans-serif;font-size:34px;font-weight:800;line-height:1.1;color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.size-card b{display:block;font-family:"Cairo",sans-serif;font-size:34px;font-weight:800;line-height:1.1;color:var(--accent-ink);font-variant-numeric:tabular-nums}
 .size-card h3{margin:6px 0 4px}
 .size-card p{font-size:12.5px}
 .opt-card{
@@ -115,7 +115,7 @@ img{max-width:100%}
   background:var(--surface);border:1px solid var(--line);position:relative
 }
 .banner::before{content:attr(data-fallback);position:absolute;inset:0;display:grid;place-items:center;
-  font-family:"Noto Kufi Arabic",sans-serif;font-size:26px;opacity:.28}
+  font-family:"Cairo",sans-serif;font-size:26px;opacity:.28}
 .banner img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:1}
 .opt-card h3{margin:0 0 6px;font-size:16px;font-weight:700}
 .opt-card p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.6}
@@ -143,13 +143,13 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
 .tierkey .t-br{border-color:var(--br);background:var(--br-bg);color:var(--br)}
 .tierkey .t-si{border-color:var(--si);background:var(--si-bg);color:var(--si)}
 .tierkey .t-go{border-color:var(--go);background:var(--go-bg);color:var(--go)}
-.tierkey b{display:block;font-family:"Noto Kufi Arabic",sans-serif;font-size:15px;font-weight:800}
+.tierkey b{display:block;font-family:"Cairo",sans-serif;font-size:15px;font-weight:800}
 .tierkey span{font-size:12.5px;opacity:.85}
-.tierkey .pts{font-family:"Noto Kufi Arabic",sans-serif;font-size:21px;font-weight:800;font-variant-numeric:tabular-nums}
+.tierkey .pts{font-family:"Cairo",sans-serif;font-size:21px;font-weight:800;font-variant-numeric:tabular-nums}
 
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:16px}
 .stats div{padding:13px 15px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line)}
-.stats b{display:block;font-family:"Noto Kufi Arabic",sans-serif;font-size:22px;font-weight:800;line-height:1.3;font-variant-numeric:tabular-nums}
+.stats b{display:block;font-family:"Cairo",sans-serif;font-size:22px;font-weight:800;line-height:1.3;font-variant-numeric:tabular-nums}
 .stats span{font-size:12.5px;color:var(--muted)}
 
 /* اختيار المواضيع */
@@ -181,7 +181,7 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
 .thumb img.art-img{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
 .thumb::before{
   content:attr(data-fallback);position:absolute;inset:0;display:grid;place-items:center;
-  font-family:"Noto Kufi Arabic",sans-serif;font-weight:800;font-size:22px;opacity:.5;
+  font-family:"Cairo",sans-serif;font-weight:800;font-size:22px;opacity:.5;
   font-variant-numeric:tabular-nums
 }
 .thumb img.art-img{position:relative;z-index:1}
@@ -195,7 +195,7 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
 .score.on{border-color:var(--accent);background:var(--accent-soft)}
 .score .nm{font-weight:700;font-size:14.5px}
 .score .turn{font-size:11px;color:var(--accent-ink);font-weight:700;display:block}
-.score .pt{font-family:"Noto Kufi Arabic",sans-serif;font-weight:800;font-size:28px;font-variant-numeric:tabular-nums}
+.score .pt{font-family:"Cairo",sans-serif;font-weight:800;font-size:28px;font-variant-numeric:tabular-nums}
 .score .aids-left{display:flex;gap:5px;margin-top:5px}
 .score .aids-left i{font-style:normal;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:99px;border:1px solid var(--line-2);color:var(--muted)}
 .score .aids-left i.used{opacity:.35;text-decoration:line-through}
@@ -225,7 +225,7 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
 .cells{display:grid;grid-template-columns:1fr 1fr;gap:7px}
 .cell{aspect-ratio:1.5;border-radius:12px;display:grid;place-items:center;border:1.5px solid transparent;
   position:relative;overflow:hidden;isolation:isolate;
-  font-family:"Noto Kufi Arabic",sans-serif;font-weight:800;font-size:19px;font-variant-numeric:tabular-nums;
+  font-family:"Cairo",sans-serif;font-weight:800;font-size:19px;font-variant-numeric:tabular-nums;
   letter-spacing:.02em;transition:transform .15s,box-shadow .15s,filter .15s;
   background-image:linear-gradient(155deg,rgba(255,255,255,.14),rgba(255,255,255,0) 45%,rgba(0,0,0,.12));
   box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 1px 2px rgba(0,0,0,.08)}
@@ -252,19 +252,19 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
 .chip.si{color:var(--si);border-color:var(--si);background:var(--si-bg)}
 .chip.go{color:var(--go);border-color:var(--go);background:var(--go-bg)}
 .timer{display:flex;align-items:center;gap:10px}
-.timer .t{font-family:"Noto Kufi Arabic",sans-serif;font-weight:800;font-size:32px;font-variant-numeric:tabular-nums;min-width:54px;text-align:center}
+.timer .t{font-family:"Cairo",sans-serif;font-weight:800;font-size:32px;font-variant-numeric:tabular-nums;min-width:54px;text-align:center}
 .timer.warn .t{color:var(--bad)}
 .bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin-bottom:18px}
 .bar>i{display:block;height:100%;background:var(--accent);border-radius:99px}
 .turnbar{padding:11px 16px;border-radius:12px;background:var(--accent-soft);border:1px solid var(--accent);
   font-size:13.5px;font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.qtext{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(19px,2.6vw,27px);font-weight:600;line-height:1.6;margin:0 0 22px}
+.qtext{font-family:"Cairo",sans-serif;font-size:clamp(19px,2.6vw,27px);font-weight:600;line-height:1.6;margin:0 0 22px}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .opt{text-align:right;padding:15px 17px;border-radius:13px;border:1.5px solid var(--line);background:var(--surface-2);
   font-size:15px;line-height:1.55;display:flex;gap:12px;align-items:flex-start;transition:.13s}
 .opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
 .opt .k{flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:var(--surface);border:1px solid var(--line-2);
-  display:grid;place-items:center;font-family:"Noto Kufi Arabic",sans-serif;font-weight:700;font-size:13px;margin-top:1px}
+  display:grid;place-items:center;font-family:"Cairo",sans-serif;font-weight:700;font-size:13px;margin-top:1px}
 .opt.right{border-color:var(--good);background:var(--accent-soft)}
 .opt.right .k{background:var(--good);color:#fff;border-color:var(--good)}
 .hold{padding:26px;border-radius:13px;border:1.5px dashed var(--line-2);text-align:center;color:var(--muted);font-size:14px}
@@ -286,10 +286,10 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
 
 /* النهاية */
 .final{text-align:center;padding:34px 20px}
-.final .crown{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(28px,5vw,44px);font-weight:800;margin:10px 0 4px}
+.final .crown{font-family:"Cairo",sans-serif;font-size:clamp(28px,5vw,44px);font-weight:800;margin:10px 0 4px}
 .final .fs{display:flex;gap:16px;justify-content:center;margin-top:22px;flex-wrap:wrap}
 .final .fs div{padding:18px 28px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface-2);min-width:150px}
-.final .fs b{display:block;font-family:"Noto Kufi Arabic",sans-serif;font-size:38px;font-weight:800;font-variant-numeric:tabular-nums}
+.final .fs b{display:block;font-family:"Cairo",sans-serif;font-size:38px;font-weight:800;font-variant-numeric:tabular-nums}
 .foot{margin-top:24px;padding-top:16px;font-size:12px;color:var(--muted);line-height:1.85}
 .foot .src{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;text-align:center}
 .foot .src p{margin:0;max-width:52ch}

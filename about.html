@@ -9,7 +9,7 @@
 <meta name="description" content="لاحِب: مبادرة توعوية تحوّل كود الطرق السعودي من مجلدات على الرف إلى معرفة حيّة متداولة، عبر مسابقة موثّقة وبطاقات مذاكرة.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap">
 <style>
 :root{
   --ground:#F0F0F2; --surface:#FFFFFF; --surface-2:#F7F7F9;
@@ -36,11 +36,11 @@
 html,body{min-height:100%}
 body{
   margin:0; background:var(--ground); color:var(--ink);
-  font-family:"IBM Plex Sans Arabic","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-family:"Cairo","Segoe UI",system-ui,-apple-system,sans-serif;
   font-size:16px; line-height:1.9; -webkit-font-smoothing:antialiased;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-h1,h2,h3{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",system-ui,sans-serif;text-wrap:balance;line-height:1.35}
+h1,h2,h3{font-family:"Cairo",system-ui,sans-serif;text-wrap:balance;line-height:1.35}
 .wrap{max-width:960px;margin:0 auto;padding-inline:16px;padding-block:22px}
 a{color:var(--accent-ink)}
 img{max-width:100%;display:block}
@@ -71,7 +71,7 @@ img{max-width:100%;display:block}
 /* الأقسام */
 .sec{margin-top:34px}
 .sec h2{margin:0 0 10px;font-size:clamp(21px,3vw,27px);font-weight:800}
-.sec h2 span{display:block;font-size:12px;letter-spacing:.14em;color:var(--muted);font-weight:700;margin-bottom:6px;font-family:"IBM Plex Sans Arabic",sans-serif}
+.sec h2 span{display:block;font-size:12px;letter-spacing:.14em;color:var(--muted);font-weight:700;margin-bottom:6px;font-family:"Cairo",sans-serif}
 .sec p{margin:0 0 14px;max-width:70ch}
 .lead{font-size:clamp(17px,2.2vw,20px);line-height:1.9;color:var(--ink)}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
@@ -79,16 +79,16 @@ img{max-width:100%;display:block}
 
 /* الاسم */
 .name{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center}
-.name .word{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(56px,10vw,104px);font-weight:800;line-height:1;color:var(--accent);
+.name .word{font-family:"Cairo",sans-serif;font-size:clamp(56px,10vw,104px);font-weight:800;line-height:1;color:var(--accent);
   letter-spacing:-1px;text-align:center;padding:24px 10px}
-.name .word small{display:block;font-size:14px;letter-spacing:.12em;color:var(--muted);font-weight:700;margin-top:12px;font-family:"IBM Plex Sans Arabic",sans-serif}
+.name .word small{display:block;font-size:14px;letter-spacing:.12em;color:var(--muted);font-weight:700;margin-top:12px;font-family:"Cairo",sans-serif}
 .name blockquote{margin:0;padding:14px 18px;border-inline-start:3px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;font-size:15px;color:var(--accent-ink)}
 .name blockquote b{display:block;font-size:12px;letter-spacing:.1em;color:var(--muted);margin-bottom:2px}
 
 /* الأرقام */
 .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:6px}
 .nums div{padding:18px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface-2);text-align:center}
-.nums b{display:block;font-family:"Noto Kufi Arabic",sans-serif;font-size:32px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--accent)}
+.nums b{display:block;font-family:"Cairo",sans-serif;font-size:32px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--accent)}
 .nums span{font-size:12.5px;color:var(--muted)}
 
 /* المبادئ */
@@ -97,7 +97,7 @@ img{max-width:100%;display:block}
 .pr h3{margin:0 0 6px;font-size:16.5px;font-weight:800}
 .pr p{margin:0;font-size:14.5px;color:var(--muted);line-height:1.8}
 .pr i{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--accent-soft);color:var(--accent-ink);
-  font-style:normal;font-weight:800;font-family:"Noto Kufi Arabic",sans-serif;margin-bottom:10px;font-size:14px}
+  font-style:normal;font-weight:800;font-family:"Cairo",sans-serif;margin-bottom:10px;font-size:14px}
 
 /* الرتب */
 .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -122,7 +122,7 @@ img{max-width:100%;display:block}
 .btn.ghost:hover{border-color:var(--accent);filter:none}
 .author{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .author .av{width:56px;height:56px;border-radius:50%;background:var(--accent-soft);border:1.5px solid var(--accent);display:grid;place-items:center;
-  font-family:"Noto Kufi Arabic",sans-serif;font-weight:800;color:var(--accent-ink);flex:0 0 auto}
+  font-family:"Cairo",sans-serif;font-weight:800;color:var(--accent-ink);flex:0 0 auto}
 .author p{margin:0}
 .author small{display:block;color:var(--muted);font-size:13px}
 
