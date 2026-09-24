@@ -89,7 +89,7 @@ def main():
         for x in wrong: print("  ⚠ " + x)
         print("  الصورة تُقصّ لتملأ الإطار، فالمقاس المخالف قد يقتطع أطرافها.")
     if missing:
-        print("\nناقص %d صورة — راجع assets/IMAGE-BRIEF.md" % len(missing))
+        print("\nناقص %d صورة — راجع دليل توليد الصور في _work/image-brief/" % len(missing))
         return 1
     if total_bytes > 6 * 1048576:
         print("\n⚠ الحجم الكلي كبير على صفحة ويب — يُنصح بالتحويل إلى WebP.")
