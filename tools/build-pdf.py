@@ -58,6 +58,7 @@ h1,h2,h3,.k{font-family:"Cairo",sans-serif}
 .q.si,.tier.t-si{--c:#4F5260;--c2:#CFD1D8;--bg:#F0F1F4}
 .q.go,.tier.t-go{--c:#796B2A;--c2:#E2D9AE;--bg:#F5F1DF}
 .tier{color:var(--c);background:var(--bg);border:1.2px solid var(--c2)}
+.q .qt,.ans{text-align:justify;text-justify:inter-word;hyphens:none}
 .foot{position:fixed;bottom:-12mm;left:0;right:0;text-align:center;font-size:8.5pt;color:#9a9ca4}
 """
 
