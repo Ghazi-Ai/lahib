@@ -183,6 +183,17 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
 .pick .sub{font-size:11.5px;color:var(--muted);line-height:1.5}
 .pick .vol{font-size:10.5px;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:3px;letter-spacing:.03em}
 .pick .who{margin-top:8px;font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px}
+/* الجوال: ثلاثة مواضيع في الصف */
+@media (max-width:600px){
+  .picks{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:12px}
+  .pick{padding:7px 5px 8px;gap:3px;border-radius:11px}
+  .pick h3{font-size:11.5px;line-height:1.35}
+  .pick .sub{display:none}
+  .pick .vol{font-size:9.5px;margin-top:0}
+  .pick .who{margin-top:3px;font-size:9.5px;padding:1px 7px}
+  .pick .thumb{margin-bottom:3px;border-radius:7px}
+  .pick .thumb::before{font-size:15px}
+}
 .pick.taken{border-color:currentColor}
 .pick.p0 .who{background:var(--accent);color:#fff}
 .pick.p1 .who{background:var(--go);color:#fff}
