@@ -15,7 +15,7 @@
 | الصور نفسها | ✅ ٣٢ من ٣٢، WebP بمجموع ١٫٤ ميغابايت |
 | فحص في متصفح | ✅ ٢٤ سبتمبر ٢٠٢٦: أربع جولات كاملة في Chromium (كمبيوتر وجوال، فاتح وداكن) مع وسائل المساعدة والنمط الذهبي، بلا خطأ ولا تمرير أفقي |
 | بطاقات المذاكرة | ✅ `study.html`، وضعان، تصفية، حفظ التقدّم |
-| رفع على GitHub | ✅ https://github.com/Ghazi-Ai/lahib — الموقع: https://ghazi-ai.github.io/lahib/ |
+| رفع على GitHub | ✅ https://github.com/ghazi-alsaif/lahib — الموقع: https://ghazi-alsaif.github.io/lahib/ |
 | ملف PDF للبنك | ✅ `data/lahib-bank.pdf`، سؤال وجواب، فهرس بروابط |
 | صفحة التعريف | ✅ `about.html` |
 | العمل من عدة أجهزة | ✅ مستودع عام للموقع + مستودع خاص `lahib-work` لمجلد `_work/`، والدليل في `AGENTS.md` |
@@ -55,8 +55,8 @@
 
 ## ٦. الرفع على GitHub Pages — تم
 
-المستودع: https://github.com/Ghazi-Ai/lahib (عام، لأن GitHub Pages المجاني يتطلب ذلك).
-الموقع: https://ghazi-ai.github.io/lahib/ ويُنشر من فرع `main` تلقائيًا مع كل دفعة.
+المستودع: https://github.com/ghazi-alsaif/lahib (عام، لأن GitHub Pages المجاني يتطلب ذلك).
+الموقع: https://ghazi-alsaif.github.io/lahib/ ويُنشر من فرع `main` تلقائيًا مع كل دفعة.
 
 لدفع تحديث:
 

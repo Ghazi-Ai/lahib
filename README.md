@@ -10,7 +10,7 @@
 
 **محليًّا:** افتح `index.html` بالنقر المزدوج. لا يحتاج خادمًا ولا تنصيبًا ولا اتصالًا بالإنترنت (الخطوط وحدها تُحمَّل من الشبكة، وللصفحة بدائل خطوط تعمل بدونها).
 
-**على الويب:** https://ghazi-ai.github.io/lahib/ — منشور من هذا المستودع عبر GitHub Pages كما هو، بلا دوكر ولا خادم تطبيقات.
+**على الويب:** https://ghazi-alsaif.github.io/lahib/ — منشور من هذا المستودع عبر GitHub Pages كما هو، بلا دوكر ولا خادم تطبيقات.
 
 ---
 
@@ -19,9 +19,9 @@
 المشروع مستودعان: هذا المستودع العام للموقع، ومستودع خاص `lahib-work` لملفات العمل (مجلدات الكود الأصلية ونصوصها وأدوات كتابة الأسئلة) يُستنسخ داخله باسم `_work/`:
 
 ```bash
-git clone https://github.com/Ghazi-Ai/lahib.git shc-quiz
+git clone https://github.com/ghazi-alsaif/lahib.git shc-quiz
 cd shc-quiz
-git clone https://github.com/Ghazi-Ai/lahib-work.git _work
+git clone https://github.com/ghazi-alsaif/lahib-work.git _work
 ```
 
 الدليل الكامل للعمل على المشروع في `AGENTS.md`.
