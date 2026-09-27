@@ -141,6 +141,13 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
 .btn.ghost:hover{border-color:var(--accent);filter:none}
 .actions{display:flex;gap:11px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap}
 .gate-actions{justify-content:center}
+.bank-dl{text-align:center;margin:14px 0 0}
+.bank-dl a{display:inline-flex;align-items:center;gap:7px;color:var(--accent-ink);font-weight:700;font-size:14px;text-decoration:none;padding:6px 10px;border-radius:9px}
+.bank-dl a:hover{background:var(--accent-soft)}
+.bank-dl svg{width:17px;height:17px;flex:0 0 auto}
+.bank-dl span{font-weight:400;color:var(--muted);font-size:12px}
+.bank-dl i{font-style:normal}
+@media (max-width:520px){ .bank-dl a{font-size:13px;white-space:nowrap} .bank-dl i{display:none} }
 
 .tierkey{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px auto 0;max-width:760px}
 .tierkey div{padding:9px 8px;border-radius:12px;border:1.5px solid;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px}
@@ -380,6 +387,9 @@ input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
       <a class="btn ghost" href="study.html">بطاقات المذاكرة</a>
       <a class="btn ghost" href="about.html">عن لاحِب</a>
     </div>
+    <p class="bank-dl"><a href="data/lahib-bank.pdf" download="لاحب - بنك الأسئلة.pdf">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      تنزيل بنك الأسئلة كاملًا <span>(PDF<i> · سؤال وجواب ومرجع</i>)</span></a></p>
   </section>
 
   <!-- اختيار المواضيع -->
